@@ -4,14 +4,16 @@
     Author     : deko
 --%>
 <%@page import="DAO.EditoraDAO"%>
+<%@page import="domain.EditoraDom"%>
+
 
 <%
 EditoraDAO ed_dao1 = new EditoraDAO();
-String[] ed_livro = ed_dao1.listaEditora();
+EditoraDom[] ed_livros = ed_dao1.listaEditora();
 
 %>
         <h2>Cadastrar Livro</h2>
-        <form action="cadastrarlivro.jsp" method="POST" target="this">
+        <form action="engine/livro_ngn.jsp" method="POST" target="this">
             <input type="text" name="titulo" placeholder="Digite o título..."><br>
             <input type="text" name="autor" placeholder="Digite o autor..."><br>
             <input type="text" name="ano"   placeholder="Ano" size="5"><br>
@@ -19,9 +21,9 @@ String[] ed_livro = ed_dao1.listaEditora();
             <label for="rbeditora">Editora:</label><br>
             <select name="editora">
                 <%
-                    for(int i=0;i<ed_livro.length;i++)
+                    for(int i=0;i<ed_livros.length;i++)
                     {
-                        out.println(String.format("<option value=\"%s\">%s</option>",ed_livro[i],ed_livro[i]));
+                        out.println(String.format("<option value=\"%s\">%s</option>",Integer.toString(ed_livros[i].getId()),ed_livros[i].getNome()));
                     }
                 %>
             </select><br>

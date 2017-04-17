@@ -32,8 +32,12 @@ and open the template in the editor.
         height: 100px;
     }
     .banner_sml h1 {
-        font-size: 2em;
+        font-size: 2.5em;
     }
+        .banner_sml h3 {
+        font-size: 1.5em;
+    }
+
     .banner_big{
         background-color: #9f9f9f;
         color: #000;

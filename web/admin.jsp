@@ -7,7 +7,7 @@
 <%@include file="templates/template.jsp" %>
 <body>
 
-<%@include file="templates/mainheader.jsp" %><%-- Jumbotron --%>
+<%@include file="templates/smlheader.jsp" %><%-- Jumbotron --%>
 <%@include file="templates/menu.jsp"%><%-- Menu--%>
 <%@include file="templates/menu_vert.jsp" %>
 </body>
