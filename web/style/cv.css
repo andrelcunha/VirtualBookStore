@@ -26,12 +26,20 @@ and open the template in the editor.
       margin-bottom: 0;
 
     }
-    .banner_sm{
+    .banner_sml{
+        background-color: #9f9f9f;
+        color: #000;
+        height: 100px;
+    }
+    .banner_sml h1 {
+        font-size: 2em;
+    }
+    .banner_big{
         background-color: #9f9f9f;
         color: #000;
         height: 200px;
     }
-    .banner_sm h1 {
+    .banner_big h1 {
         font-size: 4em;
     }
     .navbar a{

@@ -1,13 +1,18 @@
 <%-- 
+    Document   : smlheader
+    Created on : Apr 16, 2017, 3:06:38 PM
+    Author     : deko
+--%>
+<%-- 
     Document   : mainheader
     Created on : Apr 16, 2017, 3:07:38 AM
     Author     : deko
 --%>
 
-<div class="container-fluid banner_sm">
+<div class="container-fluid banner_sml">
     <div class="row">
         <div class="col-sm-3">
-            <img src="images/book-stack-icon.png" height="80%" width="80%" class="img-responsive" style="padding-left:40px">
+            <img src="images/book-stack-icon.png" height="40%" width="40%" class="img-responsive" style="padding-left:20px">
         </div>
         <div class="row">
             <div class="col-sm-6">
@@ -20,3 +25,4 @@
         </div>
     </div>
 </div>
+

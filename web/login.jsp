@@ -3,14 +3,14 @@
     Created on : Apr 16, 2017, 2:07:04 AM
     Author     : deko
 --%>
-<%@include file="template.jsp" %>
+<%@include file="templates/template.jsp" %>
 
 <body>
-    <%@include file="mainheader.jsp" %>
+    <%@include file="templates/mainheader.jsp" %>
 <div class="container">
   <h2>Acesso à área administrativa</h2>
-  <p>Efetue o login para ter acesso funções administrativas</p>
-  <form action="valida.jsp" method="POST">
+  <p>Efetue o login para ter acesso funções administrativas.</p>
+  <form action="templates/valida.jsp" method="POST">
     <div class="form-group">
       <label for="usuario">Nome:</label>
       <input type="text" class="form-control" id="usuario" name="usuario">

@@ -4,14 +4,11 @@
     Author     : deko
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<%@include file="templates/template.jsp" %>
+<body>
+
+<%@include file="templates/mainheader.jsp" %><%-- Jumbotron --%>
+<%@include file="templates/menu.jsp"%><%-- Menu--%>
+<%@include file="templates/menu_vert.jsp" %>
+</body>
 </html>
