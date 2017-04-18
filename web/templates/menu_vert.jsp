@@ -18,7 +18,7 @@
                 <div id="home" class="tab-pane fade in active">
                     <%@include file="/home_admin.jsp" %>
                 </div>
-                 <div id="livro" class="tab-pane fade ">
+                <div id="livro" class="tab-pane fade ">
                     <%@include file="/livro.jsp" %>
                 </div>
                 <div id="editora" class="tab-pane fade">

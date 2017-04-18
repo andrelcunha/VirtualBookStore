@@ -37,21 +37,20 @@ public class LivroDAO {
         String sqlstr = String.format("SELECT FROM public.livro "
                 + "WHERE titulo='%s'", livro.getTitulo());
         ResultSet rs = ExecutaSelect(sqlstr);
-        rs.last();
-        int size = rs.getRow();
-        LivroDom[] livros_encontrados = new LivroDom[size];
-        rs.first();
-        for(int i=0;i<size;i++)
-            {
-                livros_encontrados[i].setId(rs.getInt("id"));
-                livros_encontrados[i].setTitulo(rs.getString("titulo"));
-                livros_encontrados[i].setAutor(rs.getString("autor"));
-                livros_encontrados[i].setAno(rs.getInt("ano"));
-                livros_encontrados[i].setPreco(rs.getDouble("preco"));
-                livros_encontrados[i].setFoto(rs.getString("foto"));
-                livros_encontrados[i].setIdEditora(rs.getInt("idEditora"));
-                rs.next();
-            }
+        ArrayList<LivroDom> array = new ArrayList<>();
+        while(rs.next()){
+            
+            LivroDom tmp = new LivroDom();
+            tmp.setId(rs.getInt("id"));
+            tmp.setTitulo(rs.getString("titulo"));
+            tmp.setAutor(rs.getString("autor"));
+            tmp.setAno(rs.getInt("ano"));
+            tmp.setPreco(rs.getDouble("preco"));
+            tmp.setFoto(rs.getString("foto"));
+            tmp.setIdEditora(rs.getInt("idEditora"));
+            array.add(tmp);
+        }
+        LivroDom[] livros_encontrados = array.toArray(new LivroDom[array.size()]);
         return livros_encontrados;
     }
     private ResultSet ExecutaSelect(String sqlstr) throws SQLException, ClassNotFoundException {
@@ -64,7 +63,7 @@ public class LivroDAO {
     private int ExecutaInsert(String sqlstr) throws SQLException, ClassNotFoundException {
             
                 Connection con = new connection().getCon();
-                Statement st = con.createStatement();
+                Statement st = con.prepareCall(sqlstr, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 return st.executeUpdate(sqlstr);
     }
 }

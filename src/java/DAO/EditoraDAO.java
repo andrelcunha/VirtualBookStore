@@ -28,16 +28,15 @@ public class EditoraDAO {
     public EditoraDom[] listaEditora() throws SQLException, ClassNotFoundException{
         String sqlstr = "SELECT * FROM public.editora";
         ResultSet rs = ExecutaSelect(sqlstr);
-        rs.last();
-        int size = rs.getRow();
-        EditoraDom[] editoras_encontradas = new EditoraDom[size];
-        rs.first();
-        for(int i=0;i<size;i++)
-            {
-                editoras_encontradas[i].setId(rs.getInt("id"));
-                editoras_encontradas[i].setNome(rs.getString("nome"));
-                editoras_encontradas[i].setCidade(rs.getString("cidade"));
-            }
+        ArrayList <EditoraDom> array = new ArrayList<>();
+        while(rs.next()){
+            EditoraDom tmp = new EditoraDom();
+            tmp.setId(rs.getInt("id"));
+            tmp.setNome(rs.getString("nome"));
+            tmp.setCidade(rs.getString("cidade"));
+            array.add(tmp);
+        }
+        EditoraDom[] editoras_encontradas = (EditoraDom[]) array.toArray(new EditoraDom[array.size()]);
         return editoras_encontradas;
     }
         private ResultSet ExecutaSelect(String sqlstr) throws SQLException, ClassNotFoundException {

@@ -47,7 +47,7 @@ public class UsuarioDAO {
     private int ExecutaInsert(String sqlstr) throws SQLException, ClassNotFoundException {
             
                 Connection con = new connection().getCon();
-                Statement st = con.createStatement();
+                Statement st = con.prepareCall(sqlstr, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 return st.executeUpdate(sqlstr);
     }
 }

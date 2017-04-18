@@ -13,12 +13,13 @@ EditoraDom[] ed_livros = ed_dao1.listaEditora();
 
 %>
         <h2>Cadastrar Livro</h2>
-        <form action="engine/livro_ngn.jsp" method="POST" target="this">
+        <form action="engine/livro_ngn.jsp" method="POST" target="this" enctype="multipart/form-data">
             <input type="text" name="titulo" placeholder="Digite o título..."><br>
             <input type="text" name="autor" placeholder="Digite o autor..."><br>
             <input type="text" name="ano"   placeholder="Ano" size="5"><br>
-            <input type="text" name="preco" placeholder="R$" size="7"><br>
-            <label for="rbeditora">Editora:</label><br>
+            <input type="text" name="preco" placeholder="" size="50" ><br>
+            <input type="file" name="foto" placeholder="R$" size="7"><br>
+            <label for="editora">Editora:</label><br>
             <select name="editora">
                 <%
                     for(int i=0;i<ed_livros.length;i++)
