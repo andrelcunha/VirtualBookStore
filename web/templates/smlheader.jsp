@@ -4,7 +4,7 @@
     Author     : deko
 --%>
 
-<div class="container-fluid banner_sml">
+<div class="container-fluid banner_ banner_sml">
     <%@include file="header.jsp" %>
 </div>
 

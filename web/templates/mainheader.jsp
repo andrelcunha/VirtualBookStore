@@ -4,7 +4,7 @@
     Author     : deko
 --%>
 
-<div class="container-fluid banner_sml banner_big">
+<div class="container-fluid banner_ banner_big">
     <%@include file="header.jsp" %>
     <div class="row">
         <div class="col-sm-3">

@@ -26,19 +26,23 @@ and open the template in the editor.
       margin-bottom: 0;
 
     }
-    .banner_sml{
+    
+    .banner_{
         background-color: #9f9f9f;
-        color: #000;
-        height: 100px;
+        color: #000;   
     }
-    .banner_sml h1 {
+    
+    
+    .banner_ h1 {
         font-size: 2.5em;
     }
     
-    .banner_sml p {
+    .banner_ p {
         font-size: 1.2em;
     }
-
+    .banner_sml{
+        height: 105px;
+    }
     .banner_big{
         height: 140px;
     }
