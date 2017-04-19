@@ -4,19 +4,25 @@
     Author     : deko
 --%>
 
-<div class="container-fluid banner_big">
+<div class="container-fluid banner_sml banner_big">
+    <%@include file="header.jsp" %>
     <div class="row">
         <div class="col-sm-3">
-            <img src="images/book-stack-icon.png" height="80%" width="80%" class="img-responsive" style="padding-left:40px">
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="text-center">
-                    <h1>Catálogo de Livros Virtual</h1>      
-                    <h3 >Maior acerto de livros técnicos</h3>
-                </div>
+        <div class="col-sm-6">
+            <div >
+                <form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="col-sm-3"></div>
         </div>
+        <div class="col-sm-3"></div>
     </div>
 </div>

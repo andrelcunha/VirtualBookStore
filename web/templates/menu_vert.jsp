@@ -3,9 +3,9 @@
     Created on : Apr 16, 2017, 3:11:43 PM
     Author     : deko
 --%>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-md-2">
             <ul class="nav nav-pills nav-stacked">
               <li class="active"><a href="#home">Home</a></li>
               <li><a data-toggle="pill" href="#livro">Livro</a></li>
@@ -13,7 +13,7 @@
               <li><a data-toggle="pill" href="#usuario">Usuário</a></li>
             </ul>
         </div>
-        <div class="col-sm-9">
+        <div class="col-md-6">
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
                     <%@include file="/home_admin.jsp" %>
@@ -29,5 +29,12 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div id="side_frame" >
+                <p id="result_frame"></p>
+            </div>
+        </div>
+            
+
     </div>
 </div>    

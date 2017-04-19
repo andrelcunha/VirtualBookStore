@@ -23,15 +23,8 @@ if (flag_nomeOK&&flag_cidadeOK){*/
     editora.setCidade(request.getParameter("cidade"));
     ed_dao.salvaEditora(editora);
 // }
-String[] editoras= ed_dao.listaEditora();
+for (int i=0;i<ed_dao.listaEditora().length;i++){
+        out.println(ed_dao.listaEditora()[i].getNome());
+        out.println("\n");
+}
 %>
-<html><head></head>
-    <body>
-         
-        <%
-                    for(int i=0;i<editoras.length;i++)
-                    {
-                        out.println(editoras[i]);
-                    }
-        %>
-    </body></html>
