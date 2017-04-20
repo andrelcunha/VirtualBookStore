@@ -23,8 +23,13 @@
         session.setAttribute("user", usuario);
         session.setMaxInactiveInterval(30*60); //30 minuts expiration
         Cookie userName = new Cookie("user", usuario);
+        userName.setMaxAge(30*60);
+        userName.setPath("/");
         response.addCookie(userName);
-        response.sendRedirect("../LoginSuccess.jsp");
+        //response.sendRedirect("../LoginSuccess.jsp");
+        //Get the encoded URL string
+        String encodedURL = response.encodeURL("../LoginSuccess.jsp");
+        response.sendRedirect(encodedURL);
     }
     
     

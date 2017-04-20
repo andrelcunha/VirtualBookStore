@@ -35,9 +35,22 @@ if(cookies !=null){
 <br>
 User=<%=user %>
 <br>
-<a href="CheckoutPage.jsp">Checkout Page</a>
-<form action="Logout.jsp" method="post">
+<a href="<%=response.encodeURL("CheckoutPage.jsp") %>">Checkout Page</a>
+<form action="<%=response.encodeURL("Logout.jsp") %>" method="post">
 <input type="submit" value="Logout" >
 </form>
-    </body>
+<table>
+<%
+   
+if(cookies !=null){
+    for(Cookie cookie : cookies){
+            out.println("<tr>");
+            out.println("<td>"+cookie.getName()+"</td>");
+            out.println("<td>"+cookie.getValue()+"</td>");
+            out.println("</tr>");
+    }
+}
+%>
+</table>    
+</body>
 </html>

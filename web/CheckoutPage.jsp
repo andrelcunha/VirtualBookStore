@@ -13,11 +13,11 @@
 </head>
 <body>
 <%
+String userName = null;
 //allow access only if session exists
 if(session.getAttribute("user") == null){
 	response.sendRedirect("login.html");
-}
-String userName = null;
+}else userName = (String) session.getAttribute("user");
 String sessionID = null;
 Cookie[] cookies = request.getCookies();
 if(cookies !=null){
@@ -28,7 +28,7 @@ for(Cookie cookie : cookies){
 %>
 <h3>Hi <%=userName %>, do the checkout.</h3>
 <br>
-<form action="Logout.jsp" method="post">
+<form action="<%=response.encodeURL("Logout.jsp") %>" method="post">
 <input type="submit" value="Logout" >
 </form>
 </body>
