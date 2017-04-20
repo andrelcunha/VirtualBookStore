@@ -36,6 +36,7 @@
    visitCount = visitCount + 1;
    userID = (String)session.getAttribute(userIDKey);
    session.setAttribute(visitCountKey,  visitCount);
+   
 %>
 <html>
 <head>
