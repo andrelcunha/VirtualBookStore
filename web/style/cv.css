@@ -48,3 +48,8 @@ and open the template in the editor.
     .navbar a{
         font-size:1em;
     }
+    .logo_thumb{
+        height: 60%;
+        width: 60%;
+        
+    }

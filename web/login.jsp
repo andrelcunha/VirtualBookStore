@@ -9,13 +9,13 @@
 
 <%
     String msg="";
-            if(login_ok.equals("false")){
-            msg=String.format("<div id=\"msg\" class=\"alert alert-warning\">"
-                + "    <strong>Usuário e senha não conferem!</strong>"
-                + "    Tente novamente" 
-                + "</div>");
-            }
-            %>
+    if(login_ok.equals("false")){
+        msg=String.format("<div id=\"msg\" class=\"alert alert-warning\">"
+        + "    <strong>Usuário e senha não conferem!</strong>"
+        + "    Tente novamente" 
+        + "</div>");
+    }
+%>
 
 <body>
     <%@include file="templates/smlheader.jsp" %>

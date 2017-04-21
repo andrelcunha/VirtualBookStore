@@ -14,5 +14,4 @@
             login_ok=session.getAttribute("login_ok").toString();
             session.removeAttribute("login_ok");
     }
-    
 %>

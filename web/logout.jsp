@@ -9,9 +9,16 @@
     	Cookie[] cookies = request.getCookies();
     	if(cookies != null){
             for(Cookie cookie : cookies){
+                if(cookie.getName().equals("user")) 
+                    cookie.setValue("");
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+
     		if(cookie.getName().equals("JSESSIONID")){
-    			System.out.println("JSESSIONID="+cookie.getValue());
-    			break;
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
     		}
             }
     	}
@@ -21,17 +28,6 @@
     	if(session != null){
     		session.invalidate();
     	}
-    	response.sendRedirect("login.jsp");
+    	response.sendRedirect("index.jsp");
 
 %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>

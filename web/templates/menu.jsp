@@ -3,17 +3,34 @@
     Created on : Apr 16, 2017, 2:08:59 AM
     Author     : deko
 --%>
+<%@include file="/engine/login_flag.jsp" %>
 <%
- String userLabel=" Login" ;
- String display="block";
- boolean flag_dsp_OK=true;
- while(request.getAttributeNames().hasMoreElements()){
-    String tmp=request.getAttributeNames().nextElement().toString();
-    flag_dsp_OK=(tmp.contentEquals("display")&&flag_dsp_OK);
+String btnLogin="";
+String btnAdmin="";
+String user = "";
+String userName = "";
+String sessionID = null;
+if(session.getAttribute("user") == null){
+	//response.sendRedirect("index.jsp");
+}else user = (String) session.getAttribute("user");
+Cookie[] cookies = request.getCookies();
+if(cookies !=null){
+    for(Cookie cookie : cookies){
+            if(cookie.getName().equals("user")) 
+                userName = cookie.getValue();
+            if(cookie.getName().equals("JSESSIONID")) 
+                sessionID = cookie.getValue();
+    }
 }
 
-//if(flag_dsp_OK)
-//     display=request.getAttribute("display").toString();
+if(!((user.equals(""))&&(userName.equals("")))){
+    btnAdmin ="<li><a href=\"admin.jsp\" >Administrar</a></li>";
+    btnLogin ="<li><a href=\"logout.jsp\">"+userName+" <span class=\"glyphicon glyphicon-log-out\"></span></a></li>";
+}
+else{
+    btnLogin ="<li><a href=\"login.jsp\"><span class=\"glyphicon glyphicon-log-in\"></span> Login</a></li>";
+}
+
 %>    
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -23,18 +40,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-        <a class="navbar-brand" href="#"><img src="images/book-stack-thumb_inverted.png" height="60%" width="60%" class="img-responsive"></a>
+        <a class="navbar-brand" href="#"><img src="images/book-stack-thumb_inverted.png" class="img-responsive logo_thumb"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar" >
       <ul class="nav navbar-nav" >
         <li class="active"><a href="index.jsp">Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">Deals</a></li>
-        <li style="display:<%=display %>"><a href="admin.jsp" >Administrar</a></li>
+        <li><a href="#">Produtos</a></li>
+        <li><a href="#">Promoções</a></li>
         <li><a href="#">Contact</a></li>
+        <%=btnAdmin%>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          <li style="display:<%=display %>"><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <%=btnLogin%>
       </ul>
     </div>
   </div>
