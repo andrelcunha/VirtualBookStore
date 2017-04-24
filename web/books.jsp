@@ -6,8 +6,10 @@
 <%@page import="DAO.LivroDAO" %>
 <%@page import="domain.LivroDom" %>
 <%
-LivroDAO ldao= new LivroDAO();    
-LivroDom[] livros= ldao.ConsultaLivroTodos();
+LivroDAO ldao= new LivroDAO();
+LivroDom livro = new LivroDom();
+livro.setTitulo("");
+LivroDom[] livros= ldao.ConsultaLivroTitulo(livro);
 String open_row="<div class=\"container\"><div class=\"row\">";
 String close_row="</div></div><br>";
 String result="";

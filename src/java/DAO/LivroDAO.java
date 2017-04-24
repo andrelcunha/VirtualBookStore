@@ -8,7 +8,6 @@ package DAO;
 import connectionfactory.connection;
 import domain.LivroDom;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -51,8 +50,10 @@ public class LivroDAO {
     }
     public LivroDom[] ConsultaLivroTitulo(LivroDom livro) throws SQLException, 
             ClassNotFoundException{
-        String sqlstr = String.format("SELECT * FROM public.livro "
-                + "WHERE titulo='%s';", livro.getTitulo());
+        String sqlstr = "SELECT * FROM public.livro ";
+        if (livro.getTitulo()!="")
+            sqlstr += String.format("WHERE titulo='%s'", livro.getTitulo());
+        sqlstr += ";";
         ResultSet rs = ExecutaSelect(sqlstr);
         ArrayList<LivroDom> array = new ArrayList<>();
         while(rs.next()){
