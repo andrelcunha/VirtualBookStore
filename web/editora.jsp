@@ -32,8 +32,9 @@ function submitdata()
 
 <h2>Cadastrar Editora</h2>
 <form method="POST" <%--onsubmit="return submitdata();" --%>action="engine/editora_ngn.jsp" target="_blank">
-            <input type="text" name="nome" id="nome" placeholder="Digite o Nome..."><br>
-            <input type="text" name="cidade" id="cidade" placeholder="Digite a Cidade..."><br>
-            <input type="submit" value="Salvar">
+    <label class="control-label" for="nome">Nome: </label>
+    <input class="form-control" type="text" name="nome" id="nome" placeholder="Digite o Nome..."><br>
+    <label class="control-label" for="cidade">Cidade: </label>
+    <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Digite a Cidade..."><br>
+            <input class="btn btn-default" type="submit" value="Salvar">
 </form>
-            <p id="teste"></p>
