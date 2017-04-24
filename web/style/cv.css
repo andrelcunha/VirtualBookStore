@@ -49,7 +49,10 @@ and open the template in the editor.
         font-size:1em;
     }
     .logo_thumb{
-        height: 60%;
-        width: 60%;
+        height: 100%;
+        width: 50%;
         
+    }
+    .preco p{
+    font-size: 2em;
     }

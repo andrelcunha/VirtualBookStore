@@ -8,6 +8,7 @@ package DAO;
 import connectionfactory.connection;
 import domain.LivroDom;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,23 +20,39 @@ import java.util.ArrayList;
  */
 public class LivroDAO {
     
-    public void SalvaLivro(LivroDom livro) throws SQLException, 
+    public void salvaLivro(LivroDom livro) throws SQLException, 
             ClassNotFoundException{
-        String sqlstr = String.format("INSERT INTO public.livro(" +
-        "nome, senha) VALUES ( '%s', '%s');",
+        String sqlstr = String.format("INSERT INTO public.livro" +
+        " SET titulo='%s', autor='%s', ano='%d', preco='%.2f, foto='%s', \"idEditora\"='%d';",
                 livro.getTitulo(),
                 livro.getAutor(),
-                Integer.toString(livro.getAno()),
-                Double.toString(livro.getPreco()),
+                livro.getAno(),
+                livro.getPreco(),
                 livro.getFoto(),
-                Integer.toString(livro.getIdEditora())
+                livro.getIdEditora()
         );
+        System.out.println("DAO.LivroDAO.satualizaLivro()= "+sqlstr); 
+        ExecutaInsert(sqlstr);
+    }
+    public void atualizaLivro(LivroDom livro) throws SQLException, 
+            ClassNotFoundException{
+        String sqlstr = String.format("UPDATE public.livro(" +
+        "titulo, autor, ano, preco, foto, \"idEditora\" )"
+                + " VALUES ( '%s', '%s',%d,%.2f,'%s',%d);",
+                livro.getTitulo(),
+                livro.getAutor(),
+                livro.getAno(),
+                livro.getPreco(),
+                livro.getFoto(),
+                livro.getIdEditora()
+        );
+        System.out.println("DAO.LivroDAO.salvaLivro()= "+sqlstr); 
         ExecutaInsert(sqlstr);
     }
     public LivroDom[] ConsultaLivroTitulo(LivroDom livro) throws SQLException, 
             ClassNotFoundException{
-        String sqlstr = String.format("SELECT FROM public.livro "
-                + "WHERE titulo='%s'", livro.getTitulo());
+        String sqlstr = String.format("SELECT * FROM public.livro "
+                + "WHERE titulo='%s';", livro.getTitulo());
         ResultSet rs = ExecutaSelect(sqlstr);
         ArrayList<LivroDom> array = new ArrayList<>();
         while(rs.next()){
@@ -53,6 +70,36 @@ public class LivroDAO {
         LivroDom[] livros_encontrados = array.toArray(new LivroDom[array.size()]);
         return livros_encontrados;
     }
+    public LivroDom[] ConsultaLivroTodos() throws SQLException, 
+            ClassNotFoundException{
+        String sqlstr = "SELECT * FROM public.livro;";
+        ResultSet rs = ExecutaSelect(sqlstr);
+        ArrayList<LivroDom> array = new ArrayList<>();
+        while(rs.next()){
+            
+            LivroDom tmp = new LivroDom();
+            tmp.setId(rs.getInt("id"));
+            tmp.setTitulo(rs.getString("titulo"));
+            tmp.setAutor(rs.getString("autor"));
+            tmp.setAno(rs.getInt("ano"));
+            tmp.setPreco(rs.getDouble("preco"));
+            tmp.setFoto(rs.getString("foto"));
+            tmp.setIdEditora(rs.getInt("idEditora"));
+            array.add(tmp);
+        }
+        LivroDom[] livros_encontrados = array.toArray(new LivroDom[array.size()]);
+        return livros_encontrados;
+    }
+    public String getNextFoto() throws SQLException, ClassNotFoundException{
+        String sFoto=null;
+        String sqlstr = String.format("SELECT id from livro " +
+                                    "order by id desc limit 1;");
+        ResultSet rs = ExecutaSelect(sqlstr);
+        while(rs.next()){
+            sFoto=String.format("%06d",rs.getInt(1)+1);
+        }
+        return sFoto;
+    }
     private ResultSet ExecutaSelect(String sqlstr) throws SQLException, ClassNotFoundException {
             
                 Connection con = new connection().getCon();
@@ -63,7 +110,7 @@ public class LivroDAO {
     private int ExecutaInsert(String sqlstr) throws SQLException, ClassNotFoundException {
             
                 Connection con = new connection().getCon();
-                Statement st = con.prepareCall(sqlstr, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                Statement st = con.createStatement();
                 return st.executeUpdate(sqlstr);
     }
 }

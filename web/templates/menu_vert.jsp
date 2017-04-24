@@ -13,7 +13,7 @@
               <li><a data-toggle="pill" href="#usuario">Usuário</a></li>
             </ul>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
                     <%@include file="/home_admin.jsp" %>
@@ -34,7 +34,10 @@
                 <p id="result_frame"></p>
             </div>
         </div>
-            
-
+        <div class="col-md-4">
+            <div id="side_border" >
+                <p></p>
+            </div>
+        </div>
     </div>
 </div>    
