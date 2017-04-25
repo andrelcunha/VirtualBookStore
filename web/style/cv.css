@@ -27,10 +27,9 @@ and open the template in the editor.
     }
     
     .banner_{
-        background-color: #9f9f9f;
-        color: #000;   
+        background-color: steelblue;
+        color: #fff;   
     }
-    
     
     .banner_ h1 {
         font-size: 2.5em;
@@ -39,20 +38,30 @@ and open the template in the editor.
     .banner_ p {
         font-size: 1.2em;
     }
+    
     .banner_sml{
         height: 105px;
     }
+    
     .banner_big{
         height: 140px;
     }
+    
     .navbar a{
         font-size:1em;
     }
+    
     .logo_thumb{
         height: 100%;
         width: 50%;
-        
     }
-    .preco p{
-    font-size: 2em;
+    
+    .titulo{
+        font-size: 14px;
+        color:#666
+    }
+    
+    .preco {
+        font-size: 24px;
+        color: #333;
     }

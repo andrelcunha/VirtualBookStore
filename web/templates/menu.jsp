@@ -32,7 +32,7 @@ else{
 }
 
 %>    
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -47,7 +47,7 @@ else{
         <li class="active"><a href="index.jsp">Home</a></li>
         <li><a href="#">Produtos</a></li>
         <li><a href="#">Promoções</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#">Contato</a></li>
         <%=btnAdmin%>
       </ul>
       <ul class="nav navbar-nav navbar-right">

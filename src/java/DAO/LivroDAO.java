@@ -52,7 +52,7 @@ public class LivroDAO {
             ClassNotFoundException{
         String sqlstr = "SELECT * FROM public.livro ";
         if (livro.getTitulo()!="")
-            sqlstr += String.format("WHERE titulo='%s'", livro.getTitulo());
+            sqlstr += String.format("WHERE titulo LIKE '%%%s%%'", livro.getTitulo());
         sqlstr += ";";
         ResultSet rs = ExecutaSelect(sqlstr);
         ArrayList<LivroDom> array = new ArrayList<>();

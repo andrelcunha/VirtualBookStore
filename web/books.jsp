@@ -9,6 +9,14 @@
 LivroDAO ldao= new LivroDAO();
 LivroDom livro = new LivroDom();
 livro.setTitulo("");
+
+while(request.getParameterNames().hasMoreElements()){
+    String tmp=request.getParameterNames().nextElement().toString();
+    if(tmp.contentEquals("buscar")){
+        livro.setTitulo(request.getParameter(tmp).toString());
+        break;
+    }
+}
 LivroDom[] livros= ldao.ConsultaLivroTitulo(livro);
 String open_row="<div class=\"container\"><div class=\"row\">";
 String close_row="</div></div><br>";
@@ -25,16 +33,19 @@ while (flag_ok){
             result+="<img src=\"assets/"+ livros[i].getFoto() +"\"";
             result+="class=\"img-responsive\"";
             result+="style=\"width:100%\" alt=\""+titulo+"\"></div>";
-            result+="<div>"+titulo+"</div>";
-            result+=String.format("<div><p class\"preco\">R$ %.2f</p></div>",livros[i].getPreco());
+            result+="<div class=\"titulo\">"+titulo+"</div>";
+            String tmp=String.format("%.2f",livros[i].getPreco()).replace(".", ",");
+            result+="<div><p class=\"preco\">R$ "+tmp+"</p></div>";
             i++;
+            if((i==livros.length)&&(j==2))
+                flag_ok=false;
         }else{
             flag_ok=false;
             result+="<img src=\"images/placeholder.png\"";
             result+="class=\"img-responsive\"";
             result+="style=\"width:100%\" alt=\"\"></div>";
             result+="<div></div>";
-            result+="<div><p class\"preco\"></p></div>";
+            result+="<div><p></p></div>";
         }
         result+="</div></div>";
 

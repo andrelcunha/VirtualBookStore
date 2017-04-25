@@ -9,17 +9,16 @@
 <%
 UsuarioDAO usr_dao = new UsuarioDAO();
 UsuarioDom usuario  = new UsuarioDom();
-boolean flag_OK=true;
+usuario.setNome("");
+usuario.setSenha("");
 while(request.getParameterNames().hasMoreElements()){
     String tmp=request.getParameterNames().nextElement().toString();
-    flag_OK=(tmp.contentEquals("nome")&&flag_OK);
+    if(tmp.contentEquals("nome"))
+        usuario.setNome(request.getParameter("nome"));
+    if(tmp.contentEquals("nome"))
+        usuario.setSenha(request.getParameter("senha"));
 }
-
-usuario.setNome(request.getParameter("nome"));
-String senha = request.getParameter("senha");
-String hidden = "";
-if (flag_OK){
-    usr_dao.SalvaUsuario(usuario);
-}
+if(!((usuario.getNome().equals(""))&&(usuario.getSenha().equals(""))))
+usr_dao.SalvaUsuario(usuario);
 %>
 

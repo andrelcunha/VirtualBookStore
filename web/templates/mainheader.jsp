@@ -11,9 +11,10 @@
         </div>
         <div class="col-sm-6">
             <div >
-                <form>
+                <form action="index.jsp" method="GET">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" 
+                               placeholder="Buscar" name="buscar" id="buscar">
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="submit">
                                 <i class="glyphicon glyphicon-search"></i>
