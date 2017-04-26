@@ -18,7 +18,7 @@ function load_table() {
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Livro<span class="caret"></span></a>
                     <ul class="dropdown-menu">    
                         <li><a data-toggle="pill" href="#cadastrar_livro">Cadastrar</a></li>
-                        <li><a data-toggle="pill" href="#atualizar_livro" onclick="load_table()">Atualizar</a></li>
+                        <li><a data-toggle="pill" href="#atualizar_livro">Atualizar</a></li>
                     </ul>
               </li>
               <li><a data-toggle="pill" href="#editora">Editora</a></li>
@@ -34,7 +34,8 @@ function load_table() {
                     <%@include file="/livro.jsp" %>
                 </div>
                 <div id="atualizar_livro" class="tab-pane fade ">
-                    <div id="content">
+                    <div >
+                        <a href="teste.html">teste.html</a>
                     </div>
                 </div>
                 <div id="editora" class="tab-pane fade">
