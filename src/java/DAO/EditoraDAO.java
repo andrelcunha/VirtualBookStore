@@ -26,7 +26,7 @@ public class EditoraDAO {
     
     
     public EditoraDom[] listaEditora() throws SQLException, ClassNotFoundException{
-        String sqlstr = "SELECT * FROM public.editora";
+        String sqlstr = "SELECT * FROM public.editora ORDER BY id;";
         ResultSet rs = ExecutaSelect(sqlstr);
         ArrayList <EditoraDom> array = new ArrayList<>();
         while(rs.next()){
