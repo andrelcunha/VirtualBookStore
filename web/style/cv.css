@@ -65,3 +65,13 @@ and open the template in the editor.
         font-size: 24px;
         color: #333;
     }
+    .atualiza_form  {
+       width: 50%;
+        height: 500px;
+        background: red;
+        float: left; 
+    } 
+    .atualiza_foto {
+        margin-left: 50%;
+        height: 500px;
+    }

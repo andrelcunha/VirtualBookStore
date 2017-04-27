@@ -27,8 +27,8 @@ import java.util.logging.Logger;
  *
  * @author luiscunha
  */
-@WebServlet(name = "atualizaLivro", urlPatterns = {"/atualizaLivro"})
-public class atualizaLivro extends HttpServlet {
+@WebServlet(name = "JsonLivros", urlPatterns = {"/JsonLivros"})
+public class JsonLivros extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -82,7 +82,7 @@ public class atualizaLivro extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(atualizaLivro.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsonLivros.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -100,9 +100,9 @@ public class atualizaLivro extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(atualizaLivro.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsonLivros.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(atualizaLivro.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsonLivros.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

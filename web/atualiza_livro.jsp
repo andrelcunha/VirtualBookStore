@@ -4,21 +4,50 @@
     Author     : deko
 --%>
 <script>
-    function clean_table(i) {
-        var myForm="";
-        create_form(myForm);
-        document.
-        document.getElementById("titulo").value="Teste";
-        document.getElementById("autor").value=jarr[i].autor;
-        document.getElementById("ano").value=jarr[i].ano;
-        document.getElementById("preco").value=jarr[i].preco;
-        //document.getElementById("editora").value=jarr[i].editora;
-        //document.getElementById("foto").value=jarr[i].foto;
-
+    $(document).ready(function(){
+        AJAX.onreadystatechange = table_handler;
+        AJAX.open("GET", "JsonLivros");
+        AJAX.send(""); 
+    });
+    function createXMLHttpRequest(){ 
+        // See http://en.wikipedia.org/wiki/XMLHttpRequest 
+        // Provide the XMLHttpRequest class for IE 5.x-6.x: 
+        if( typeof XMLHttpRequest === "undefined" ) XMLHttpRequest = function() {
+            try {
+                return new ActiveXObject("Msxml2.XMLHTTP.6.0"); 
+            } catch(e) {}
+            try {
+                return new ActiveXObject("Msxml2.XMLHTTP.3.0"); 
+            } catch(e) {}
+            try {
+                return new ActiveXObject("Msxml2.XMLHTTP"); 
+            } catch(e) {}
+            try {
+                return new ActiveXObject("Microsoft.XMLHTTP"); 
+            } catch(e) {}
+            throw new Error( "This browser does not support XMLHttpRequest." ); 
+        };return new XMLHttpRequest(); 
     };
-
+    var AJAX = createXMLHttpRequest();
+    var id=0;
+    function clean_table(i) {
+        id=i;
+        $("#table_livros").remove();
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                jarr_form = eval('(' + xhttp.responseText +')');
+                create_form(i);
+            }else if (AJAX.readyState === 4 && AJAX.status !== 200) {
+                alert('Something went wrong...');    
+            }
+        };
+        xhttp.open("GET", "JsonEditoras", true);
+        xhttp.send();
+    };
+            
     var myTable="";
-    myTable="<table class=\"table table-striped table-hover table-condensed\"><thead><tr>";
+    myTable="<table id=\"table_livros\" class=\"table table-striped table-hover table-condensed\"><thead><tr>";
     myTable+="<th>ID</th>";
     myTable+="<th>Título</th>";
     myTable+="<th>Autor</th>";
@@ -29,38 +58,17 @@
     myTable+="</tr></thead>";
     myTable+="<tbody>";
 
-    function createXMLHttpRequest(){ 
-        // See http://en.wikipedia.org/wiki/XMLHttpRequest 
-        // Provide the XMLHttpRequest class for IE 5.x-6.x: 
-        if( typeof XMLHttpRequest == "undefined" ) XMLHttpRequest = function() {
-            try {
-                return new ActiveXObject("Msxml2.XMLHTTP.6.0") 
-            } catch(e) {}
-            try {
-                return new ActiveXObject("Msxml2.XMLHTTP.3.0") 
-            } catch(e) {}
-            try {
-                return new ActiveXObject("Msxml2.XMLHTTP") 
-            } catch(e) {}
-            try {
-                return new ActiveXObject("Microsoft.XMLHTTP") 
-            } catch(e) {}
-            throw new Error( "This browser does not support XMLHttpRequest." ) 
-        };return new XMLHttpRequest(); 
-    };
-    var AJAX = createXMLHttpRequest();
+    
     var jarr;
-    function handler() {
-        if(AJAX.readyState == 4 && AJAX.status == 200) {
+    var jarr_form;
+
+    function table_handler() {
+        if(AJAX.readyState === 4 && AJAX.status === 200) {
             jarr = eval('(' + AJAX.responseText +')');
             create_table();
-        }else if (AJAX.readyState == 4 && AJAX.status != 200) {
+        }else if (AJAX.readyState === 4 && AJAX.status !== 200) {
             alert('Something went wrong...'); 
         }; 
-    }function show(){
-        AJAX.onreadystatechange = handler;
-        AJAX.open("GET", "atualizaLivro");
-        AJAX.send(""); 
     };
     
     function create_table(){
@@ -77,34 +85,45 @@
             myTable+="</tr>";
         }
         myTable+="</tbody></table>";
-        document.getElementById("content").innerHTML = myTable;
+        $("#content").html(myTable);
         myTable="";
     };
-    function create_form(){
-        myForm="<h2>Atualizar Livro</h2>";
+    function create_form(i){
+        myForm="<div id=\"atualiza_form\" class=\"atualiza_form\"><h2>Atualizar Livro</h2>";
         myForm+="<form action=\"\" method=\"POST\" enctype=\"multipart/form-data\">";
+        myForm+="<input type=\"hidden\" name=\"id\""+
+                " id=\"id\" value=\""+jarr[i].id+"\">";
         myForm+="<label class=\"control-label\" for=\"titulo\">Título: </label>";
-        myForm+="<input class=\"form-control\"  type=\"text\" name=\"titulo\" id=\"titulo\" >";
+        myForm+="<input class=\"form-control\"  type=\"text\" name=\"titulo\""+
+                " id=\"titulo\" value=\""+jarr[i].titulo+"\">";
         myForm+="<label class=\"control-label\" for=\"autor\">Autor: </label>";
-        myForm+="<input class=\"form-control\"  type=\"text\" name=\"autor\" id=\"autor\" >";
+        myForm+="<input class=\"form-control\"  type=\"text\" name=\"autor\""+
+                "id=\"autor\" value=\""+jarr[i].autor+"\">";
         myForm+="<label class=\"control-label\" for=\"Ano\">Ano: </label>";
-        myForm+="<input class=\"form-control\"  type=\"text\" name=\"ano\" id=\"ano\" size=\"5\">";
+        myForm+="<input class=\"form-control\"  type=\"text\" name=\"ano\""+
+                "id=\"ano\" size=\"5\" value=\""+jarr[i].ano+"\">";
         myForm+="<label class=\"control-label\" for=\"preco\">Preço:</label>";
-        myForm+="<input class=\"form-control\"  type=\"text\" name=\"preco\" id=\"preco\" size=\"50\">";
-        myForm+="<label class=\"control-label\" for=\"foto\">Foto: </label>";
-        myForm+="<input class=\"form-control\"  type=\"file\" name=\"foto\"  id=\"foto\" size=\"7\">";
+        myForm+="<input class=\"form-control\"  type=\"text\" name=\"preco\"" +
+                "id=\"preco\" size=\"50\" value=\""+jarr[i].preco+"\">";
+        myForm+="<label class=\"control-label\" for=\"zfoto\">Foto: </label>";
+        myForm+="<input class=\"form-control\"  type=\"file\" name=\"foto\""+
+                "id=\"foto\" size=\"7\" >";
         myForm+="<div class=\"form-group\">";
         myForm+="<label class=\"control-label\" for=\"editora\">Editora:</label>";
         myForm+="<select name=\"editora\">";
+        for (var j in jarr_form){
+            myForm+="<option value=\""+jarr_form[j].id;
+            if (jarr[i].editora==jarr_form[j].nome)
+                myForm+=" selected ";
+            myForm+="\">"+jarr_form[j].nome+"</option>"
+        }
         myForm+="</select>";
         myForm+="</div>";
         myForm+="<input class=\"btn btn-default\" type=\"submit\" value=\"Salvar\">";
         myForm+="</form>";
-        document.getElementById("content").innerHTML=myForm;
+        myForm+="</div><div class=\"atualiza_foto\"><img src=\"assets/"+ jarr[i].foto +"\"></div>";
+        $("#content").html(myForm);
     };
 </script>
-        
-            
-<a href="#" onclick="show()">Click here to get JSON data from the server side</a>
 
-        <div id="content"></div>
+    <div id="content"></div>
