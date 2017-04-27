@@ -3,12 +3,6 @@
     Created on : Apr 16, 2017, 3:11:43 PM
     Author     : deko
 --%>
-<script>
-function load_table() {
-     document.getElementById("content").innerHTML='<object type="text/html" data="atualiza_livro.jsp" ></object>';
-}
-
-</script>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
@@ -33,10 +27,8 @@ function load_table() {
                 <div id="cadastrar_livro" class="tab-pane fade ">
                     <%@include file="/livro.jsp" %>
                 </div>
-                <div id="atualizar_livro" class="tab-pane fade ">
-                    <div >
-                        <a href="teste.html">teste.html</a>
-                    </div>
+                <div id="atualizar_livro" class="tab-pane fade">
+                    <%@include file="/atualiza_livro.jsp" %>
                 </div>
                 <div id="editora" class="tab-pane fade">
                     <%@include file="/editora.jsp" %>

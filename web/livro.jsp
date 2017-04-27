@@ -30,10 +30,11 @@ for(int i=0;i<ed_livros.length;i++)
             <label class="control-label" for="foto">Foto: </label>
             <input class="form-control"  type="file" name="foto"  id="foto" size="7">
             <div class="form-group">
-            <label class="control-label" for="editora">Editora:</label>
-            <select name="editora">
-                <%=editora_opt%>
-            </select>
-            <input class="btn btn-default" type="submit" value="Salvar">
+                <label class="control-label" for="editora">Editora:</label>
+                <select name="editora">
+                    <%=editora_opt%>
+                </select>
             </div>
-    </form>
+            <input class="btn btn-default" type="submit" value="Salvar">
+            
+        </form>
