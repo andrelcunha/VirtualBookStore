@@ -90,7 +90,7 @@
     };
     function create_form(i){
         myForm="<div id=\"atualiza_form\" class=\"atualiza_form\"><h2>Atualizar Livro</h2>";
-        myForm+="<form action=\"\" method=\"POST\" enctype=\"multipart/form-data\">";
+        myForm+="<form action=\"LivroNgn\" method=\"POST\" >";
         myForm+="<input type=\"hidden\" name=\"id\""+
                 " id=\"id\" value=\""+jarr[i].id+"\">";
         myForm+="<label class=\"control-label\" for=\"titulo\">Título: </label>";
@@ -105,23 +105,25 @@
         myForm+="<label class=\"control-label\" for=\"preco\">Preço:</label>";
         myForm+="<input class=\"form-control\"  type=\"text\" name=\"preco\"" +
                 "id=\"preco\" size=\"50\" value=\""+jarr[i].preco+"\">";
-        myForm+="<label class=\"control-label\" for=\"zfoto\">Foto: </label>";
-        myForm+="<input class=\"form-control\"  type=\"file\" name=\"foto\""+
-                "id=\"foto\" size=\"7\" >";
+        //myForm+="<label class=\"control-label\" for=\"foto\">Foto: </label>";
+        //myForm+="<input class=\"form-control\"  type=\"file\" name=\"upload_foto\""+
+        //        "id=\"upload_foto\" >";
+        myForm+="<input type=\"hidden\" name=\"foto\""+
+                " id=\"foto\" value=\""+jarr[i].foto+"\">";
         myForm+="<div class=\"form-group\">";
         myForm+="<label class=\"control-label\" for=\"editora\">Editora:</label>";
         myForm+="<select name=\"editora\">";
         for (var j in jarr_form){
             myForm+="<option value=\""+jarr_form[j].id;
-            if (jarr[i].editora==jarr_form[j].nome)
-                myForm+=" selected ";
-            myForm+="\">"+jarr_form[j].nome+"</option>"
+            if (jarr[i].editora===jarr_form[j].nome)
+                myForm+=" selected=\"selected\" ";
+            myForm+="\">"+jarr_form[j].nome+"</option>";
         }
         myForm+="</select>";
         myForm+="</div>";
         myForm+="<input class=\"btn btn-default\" type=\"submit\" value=\"Salvar\">";
         myForm+="</form>";
-        myForm+="</div><div class=\"atualiza_foto\"><img src=\"assets/"+ jarr[i].foto +"\"></div>";
+        myForm+="</div><div class=\"atualiza_foto\"><img class=\"img-responsive\" src=\"assets/"+ jarr[i].foto +"\"></div>";
         $("#content").html(myForm);
     };
 </script>

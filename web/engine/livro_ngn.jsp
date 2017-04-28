@@ -74,6 +74,9 @@ if ((contentType.indexOf("multipart/form-data") >= 0)) {
                 }else if (item.getFieldName().equals("editora")){
                     livro.setIdEditora(Integer.parseInt(item.getString()));
                     tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
+                }else if (item.getFieldName().equals("foto")){
+                    livro.setFoto(item.getString());
+                    tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
                 }
             }
             else //file
@@ -81,9 +84,6 @@ if ((contentType.indexOf("multipart/form-data") >= 0)) {
                 // Get the uploaded file parameters
                 String fileName = item.getName();
                 String fileExt=fileName.substring(fileName.lastIndexOf("."));
-                //boolean isInMemory = fi.isInMemory();
-                //long sizeInBytes = fi.getSize();
-                // Write the file
                 tmp+=fileName;
                 if( fileName.lastIndexOf("\\") >= 0 ){
                     file = new File( filePath + 
@@ -99,8 +99,10 @@ if ((contentType.indexOf("multipart/form-data") >= 0)) {
                 livro.setFoto(foto);
             }
         }
-        if (flag_update)
+        if (flag_update){
             livro_dao.atualizaLivro(livro);
+            tmp+="flag_update="+flag_update;
+        }
         else 
             livro_dao.salvaLivro(livro);
     }catch(Exception ex) {

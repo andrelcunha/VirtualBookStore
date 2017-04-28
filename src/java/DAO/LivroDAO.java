@@ -19,9 +19,9 @@ import java.util.ArrayList;
  */
 public class LivroDAO {
     
-    public void salvaLivro(LivroDom livro) throws SQLException, 
+    public void atualizaLivro(LivroDom livro) throws SQLException, 
             ClassNotFoundException{
-        String sqlstr = String.format("INSERT INTO public.livro" +
+        String sqlstr = String.format("UPDATE public.livro" +
         " SET titulo='%s', autor='%s', ano='%d', preco='%.2f, foto='%s', \"idEditora\"='%d';",
                 livro.getTitulo(),
                 livro.getAutor(),
@@ -30,12 +30,12 @@ public class LivroDAO {
                 livro.getFoto(),
                 livro.getIdEditora()
         );
-        System.out.println("DAO.LivroDAO.satualizaLivro()= "+sqlstr); 
+        System.out.println("DAO.LivroDAO.atualizaLivro()= "+sqlstr); 
         ExecutaInsert(sqlstr);
     }
-    public void atualizaLivro(LivroDom livro) throws SQLException, 
+    public void salvaLivro(LivroDom livro) throws SQLException, 
             ClassNotFoundException{
-        String sqlstr = String.format("UPDATE public.livro(" +
+        String sqlstr = String.format("INSERT INTO public.livro(" +
         "titulo, autor, ano, preco, foto, \"idEditora\" )"
                 + " VALUES ( '%s', '%s',%d,%.2f,'%s',%d);",
                 livro.getTitulo(),

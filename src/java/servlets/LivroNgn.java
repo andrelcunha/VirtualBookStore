@@ -12,22 +12,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONArray;
-import DAO.EditoraDAO;
-import domain.EditoraDom;
+
+import DAO.LivroDAO;
+import domain.LivroDom;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import org.json.simple.JSONObject;
 
 /**
  *
- * @author luiscunha
+ * @author deko
  */
-@WebServlet(name = "JsonEditoras", urlPatterns = {"/JsonEditoras"})
-public class JsonEditoras extends HttpServlet {
-
+@WebServlet(name = "LivroNgn", urlPatterns = {"/LivroNgn"})
+public class LivroNgn extends HttpServlet {
+    LivroDom livro;
+    LivroDAO ldao;
+    public void intit(){
+        ldao = new LivroDAO();
+        livro.setId(0);
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,22 +44,46 @@ public class JsonEditoras extends HttpServlet {
      * @throws java.lang.ClassNotFoundException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ClassNotFoundException  {
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
+        PrintWriter out = response.getWriter( );
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            JSONArray jarr = new JSONArray();
-            EditoraDAO edao1 = new EditoraDAO();
-            EditoraDom[] editoras = edao1.listaEditora();
-            for (EditoraDom editora : editoras) {
-                JSONObject json = new JSONObject();
-                json.put("id", editora.getId());
-                json.put("nome", editora.getNome());
-                jarr.add(json);
-            }
-            out.print(jarr);
-            out.flush();
+        livro = new LivroDom();
+        System.out.println("aqui");
+        int i=0;
+        while(request.getParameterNames().hasMoreElements()){
+            System.out.println("aqui--");
+            String tmp=request.getParameterNames().nextElement();
+            if(tmp.contentEquals("id"))
+                livro.setId(Integer.parseInt(request.getParameter("id")));
+            else if(tmp.contentEquals("titulo"))
+                livro.setTitulo(request.getParameter("titulo"));
+            else if(tmp.contentEquals("autor"))
+                livro.setAutor(request.getParameter("autor"));
+            else if(tmp.contentEquals("ano"))
+                livro.setAno(Integer.parseInt(request.getParameter("ano")));
+            else if(tmp.contentEquals("preco"))
+                livro.setPreco(Double.parseDouble(request.getParameter("preco")));
+            else if(tmp.contentEquals("foto"))
+                livro.setFoto(request.getParameter("foto"));
+            else if(tmp.contentEquals("editora"))
+                livro.setIdEditora(Integer.parseInt(request.getParameter("editora")));
         }
+        if (livro.getId()==0)
+            ldao.salvaLivro(livro);
+        else 
+            ldao.atualizaLivro(livro);
+        JSONObject json = new JSONObject();
+        json.put("id", livro.getId());
+        json.put("titulo", livro.getTitulo());
+        json.put("autor", livro.getAutor());
+        json.put("ano", livro.getAno());
+        json.put("preco", livro.getPreco());
+        json.put("foto", livro.getFoto());
+        json.put("editora", livro.getIdEditora());
+        out.print(json);
+        out.flush();
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -70,8 +98,10 @@ public class JsonEditoras extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(JsonEditoras.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroNgn.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(LivroNgn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -89,9 +119,9 @@ public class JsonEditoras extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(JsonEditoras.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LivroNgn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(JsonEditoras.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LivroNgn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
