@@ -51,7 +51,7 @@ public class JsonLivros extends HttpServlet {
             EditoraDom[] editoras = edao1.listaEditora();
             LivroDom livro = new LivroDom();
             livro.setTitulo("");
-            LivroDom[] livros = ldao1.ConsultaLivroTitulo(livro);
+            LivroDom[] livros = ldao1.ConsultaLivro(livro);
             for (LivroDom livro1 : livros) {
                 JSONObject json = new JSONObject();
                 json.put("id", livro1.getId());

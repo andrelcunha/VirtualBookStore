@@ -11,14 +11,14 @@ package domain;
  */
 public class LivroDom {
     
-    private int id;
-    private String titulo;
-    private String autor;
-    private int ano;
-    private double preco;
-    private String foto;
-    private int idEditora;
-
+    private int id=0;
+    private String titulo="";
+    private String autor="";
+    private int ano=0;
+    private double preco=0.0;
+    private String foto="";
+    private int idEditora=0;
+    
 
     public int getId() {
         return id;

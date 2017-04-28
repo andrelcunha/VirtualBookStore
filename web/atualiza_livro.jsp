@@ -90,7 +90,7 @@
     };
     function create_form(i){
         myForm="<div id=\"atualiza_form\" class=\"atualiza_form\"><h2>Atualizar Livro</h2>";
-        myForm+="<form action=\"LivroNgn\" method=\"POST\" >";
+        myForm+="<form action=\"LivroNgn\" method=\"GET\" >";
         myForm+="<input type=\"hidden\" name=\"id\""+
                 " id=\"id\" value=\""+jarr[i].id+"\">";
         myForm+="<label class=\"control-label\" for=\"titulo\">Título: </label>";
@@ -99,7 +99,7 @@
         myForm+="<label class=\"control-label\" for=\"autor\">Autor: </label>";
         myForm+="<input class=\"form-control\"  type=\"text\" name=\"autor\""+
                 "id=\"autor\" value=\""+jarr[i].autor+"\">";
-        myForm+="<label class=\"control-label\" for=\"Ano\">Ano: </label>";
+        myForm+="<label class=\"control-label\" for=\"ano\">Ano: </label>";
         myForm+="<input class=\"form-control\"  type=\"text\" name=\"ano\""+
                 "id=\"ano\" size=\"5\" value=\""+jarr[i].ano+"\">";
         myForm+="<label class=\"control-label\" for=\"preco\">Preço:</label>";
@@ -114,10 +114,10 @@
         myForm+="<label class=\"control-label\" for=\"editora\">Editora:</label>";
         myForm+="<select name=\"editora\">";
         for (var j in jarr_form){
-            myForm+="<option value=\""+jarr_form[j].id;
+            myForm+="<option value=\""+jarr_form[j].id+"\"";
             if (jarr[i].editora===jarr_form[j].nome)
                 myForm+=" selected=\"selected\" ";
-            myForm+="\">"+jarr_form[j].nome+"</option>";
+            myForm+=">"+jarr_form[j].nome+"</option>";
         }
         myForm+="</select>";
         myForm+="</div>";

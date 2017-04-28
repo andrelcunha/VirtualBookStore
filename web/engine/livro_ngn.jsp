@@ -54,10 +54,9 @@ if ((contentType.indexOf("multipart/form-data") >= 0)) {
             if(item.isFormField ()){ //Form data
                 if (item.getFieldName().equals("id")){
                     livro.setId(Integer.parseInt(item.getString()));
-                    flag_update=true;
                 }else if (item.getFieldName().equals("titulo")){
                     livro.setTitulo(item.getString());
-                tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
+                    tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
                 }else if (item.getFieldName().equals("autor")){
                     livro.setAutor(item.getString());
                     tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
@@ -68,7 +67,7 @@ if ((contentType.indexOf("multipart/form-data") >= 0)) {
 
                 }else if (item.getFieldName().equals("preco")){
                     if(item.getString().contains(","));
-                    livro.setPreco(Double.parseDouble(item.getString(). replace(",",".")));
+                    livro.setPreco(Double.parseDouble(item.getString().replace(",",".")));
                     tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
     
                 }else if (item.getFieldName().equals("editora")){
@@ -99,12 +98,8 @@ if ((contentType.indexOf("multipart/form-data") >= 0)) {
                 livro.setFoto(foto);
             }
         }
-        if (flag_update){
-            livro_dao.atualizaLivro(livro);
-            tmp+="flag_update="+flag_update;
-        }
-        else 
-            livro_dao.salvaLivro(livro);
+        livro_dao.salvaLivro(livro);
+        
     }catch(Exception ex) {
       System.out.println(ex);
     }

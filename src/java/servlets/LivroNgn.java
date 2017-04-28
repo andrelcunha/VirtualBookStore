@@ -18,6 +18,7 @@ import domain.LivroDom;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Enumeration;
 import org.json.simple.JSONObject;
 
 /**
@@ -26,12 +27,7 @@ import org.json.simple.JSONObject;
  */
 @WebServlet(name = "LivroNgn", urlPatterns = {"/LivroNgn"})
 public class LivroNgn extends HttpServlet {
-    LivroDom livro;
-    LivroDAO ldao;
-    public void intit(){
-        ldao = new LivroDAO();
-        livro.setId(0);
-    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,32 +42,46 @@ public class LivroNgn extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         PrintWriter out = response.getWriter( );
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html");
+        LivroDom livro;
+        LivroDAO ldao;
+        ldao = new LivroDAO();
         livro = new LivroDom();
-        System.out.println("aqui");
-        int i=0;
-        while(request.getParameterNames().hasMoreElements()){
-            System.out.println("aqui--");
-            String tmp=request.getParameterNames().nextElement();
-            if(tmp.contentEquals("id"))
-                livro.setId(Integer.parseInt(request.getParameter("id")));
-            else if(tmp.contentEquals("titulo"))
-                livro.setTitulo(request.getParameter("titulo"));
-            else if(tmp.contentEquals("autor"))
-                livro.setAutor(request.getParameter("autor"));
-            else if(tmp.contentEquals("ano"))
-                livro.setAno(Integer.parseInt(request.getParameter("ano")));
-            else if(tmp.contentEquals("preco"))
-                livro.setPreco(Double.parseDouble(request.getParameter("preco")));
-            else if(tmp.contentEquals("foto"))
-                livro.setFoto(request.getParameter("foto"));
-            else if(tmp.contentEquals("editora"))
-                livro.setIdEditora(Integer.parseInt(request.getParameter("editora")));
+        livro.setId(0);
+        //System.out.println("aqui");
+        Enumeration paramNames = request.getParameterNames();
+        while(paramNames.hasMoreElements()){
+            //System.out.println("dentro do while");
+            String paramName=(String)paramNames.nextElement();
+            //System.out.println(paramName);
+            switch (paramName) {
+                case "id":
+                    livro.setId(Integer.parseInt(request.getParameter("id")));
+                    break;
+                case "titulo":
+                    livro.setTitulo(request.getParameter("titulo"));
+                    break;
+                case "autor":
+                    livro.setAutor(request.getParameter("autor"));
+                    break;
+                case "ano":
+                    livro.setAno(Integer.parseInt(request.getParameter("ano")));
+                    break;
+                case "preco":
+                    String tmp=request.getParameter("preco");
+                    livro.setPreco(Double.parseDouble(tmp.replace(",",".")));
+                    break;
+                case "foto":
+                    livro.setFoto(request.getParameter("foto"));
+                    break;
+                case "editora":
+                    livro.setIdEditora(Integer.parseInt(request.getParameter("editora")));
+                    break;
+                default:
+                    break;
+            }
         }
-        if (livro.getId()==0)
-            ldao.salvaLivro(livro);
-        else 
-            ldao.atualizaLivro(livro);
+        ldao.salvaLivro(livro);
         JSONObject json = new JSONObject();
         json.put("id", livro.getId());
         json.put("titulo", livro.getTitulo());
