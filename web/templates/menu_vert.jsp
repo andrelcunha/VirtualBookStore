@@ -25,16 +25,16 @@
                     <%@include file="/home_admin.jsp" %>
                 </div>
                 <div id="cadastrar_livro" class="tab-pane fade ">
-                    <%@include file="/livro.jsp" %>
+                    <%@include file="/cadastra_livro.jsp" %>
                 </div>
                 <div id="atualizar_livro" class="tab-pane fade">
                     <%@include file="/atualiza_livro.jsp" %>
                 </div>
                 <div id="editora" class="tab-pane fade">
-                    <%@include file="/editora.jsp" %>
+                    <%@include file="/cadastra_editora.jsp" %>
                 </div>
                 <div id="usuario" class="tab-pane fade">
-                    <%@include file="/usuario.jsp" %>
+                    <%@include file="/cadastra_usuario.jsp" %>
                 </div>
             </div>
         </div>
