@@ -8,7 +8,7 @@
 <body>
 <%@include file="templates/mainheader.jsp" %><%-- Jumbotron --%>
 <%@include file="templates/menu.jsp"%><%-- Menu--%>
-<%@include file="books.jsp" %>
+<%@include file="show_books.jsp" %>
 <%@include file="templates/footer.jsp"%>
 </body>
 </html>
