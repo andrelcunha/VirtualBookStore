@@ -31,7 +31,7 @@ public class LivroDAO {
                 + " preco,"
                 + " foto,"
                 + " \"idEditora\" )"
-                + " VALUES ( '%s', '%s',%d,%.2f','%s',%d);",
+                + " VALUES ( '%s', '%s',%d,%.2f,'%s',%d);",
                 livro.getTitulo(),
                 livro.getAutor(),
                 livro.getAno(),
