@@ -7,15 +7,10 @@
     $(document).ready(function(){
         $("#input_updt_foto").change(function(){
             readURL_(this);
-            $("#echo").text("Aqui");
         });
         AJAX.onreadystatechange = table_handler;
         AJAX.open("GET", "JsonLivros");
         AJAX.send("");
-        $("#input_updt_foto").change(function(){
-            readURL(this);
-            $("#echo").text("Aqui");
-        });
         $("#salvar_updt").bind("click",function() { 
             var formData = new FormData($('#image_upload_updt_form')[0]);//
             $.ajax({
@@ -151,7 +146,7 @@
         myForm+="<input class=\"form-control\"  type=\"text\" name=\"preco\"" +
                 "id=\"preco\" size=\"50\" value=\""+jarr[i].preco+"\">";
         myForm+="<input type=\"hidden\" name=\"foto\""+
-                " id=\"foto_updt\" value=\""+jarr[i].foto+"\">";
+                " id=\"foto_updt\" name=\"foto\" value=\""+jarr[i].foto+"\">";
         myForm+="<div class=\"form-group\">";
         myForm+="<label class=\"control-label\" for=\"editora\">Editora:</label>";
         myForm+="<select name=\"editora\">";
