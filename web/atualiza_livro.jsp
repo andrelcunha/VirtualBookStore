@@ -5,10 +5,54 @@
 --%>
 <script>
     $(document).ready(function(){
+        $("#input_updt_foto").change(function(){
+            readURL_(this);
+            $("#echo").text("Aqui");
+        });
         AJAX.onreadystatechange = table_handler;
         AJAX.open("GET", "JsonLivros");
-        AJAX.send(""); 
+        AJAX.send("");
+        $("#input_updt_foto").change(function(){
+            readURL(this);
+            $("#echo").text("Aqui");
+        });
+        $("#salvar_updt").bind("click",function() { 
+            var formData = new FormData($('#image_upload_updt_form')[0]);//
+            $.ajax({
+                url: 'FileUploadHandler', // Url to which the request is send
+                type: 'POST',             // Type of request to be send, called as method
+                data: formData,           // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                contentType: false,       // The content type used when sending data to the server.
+                cache: false,             // To unable request pages to be cached
+                processData:false,        // To send DOMDocument or non processed data file it is set to false
+                success: function(data){   // A function to be called if request succeeds
+                
+                    $("#foto_updt").val(JSON.parse(data).filename);
+                    $.ajax({
+                        url: 'LivroNgn',
+                        type: 'POST',
+                        data: $('#atualiza_form').serialize(),
+                        success: function () {
+                        alert('form was submitted');
+                        }
+                    });
+                }
+            });
+        });
     });
+    //Part of preview solution.
+    function readURL_(input) {
+        if (input.files && input.files[0]) {                    
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#preview_updt").empty();
+                $("#preview_updt")
+                    .html("<img class=\"img-responsive\" src=\""
+                    + e.target.result +"\">");
+            };
+            reader.readAsDataURL(input.files[0]);
+        };
+    };
     function createXMLHttpRequest(){ 
         // See http://en.wikipedia.org/wiki/XMLHttpRequest 
         // Provide the XMLHttpRequest class for IE 5.x-6.x: 
@@ -47,7 +91,8 @@
     };
             
     var myTable="";
-    myTable="<table id=\"table_livros\" class=\"table table-striped table-hover table-condensed\"><thead><tr>";
+    myTable="<table id=\"table_livros\" class=\"table table-striped "
+    +" table-hover table-condensed\"><thead><tr>";
     myTable+="<th>ID</th>";
     myTable+="<th>Título</th>";
     myTable+="<th>Autor</th>";
@@ -105,11 +150,8 @@
         myForm+="<label class=\"control-label\" for=\"preco\">Preço:</label>";
         myForm+="<input class=\"form-control\"  type=\"text\" name=\"preco\"" +
                 "id=\"preco\" size=\"50\" value=\""+jarr[i].preco+"\">";
-        //myForm+="<label class=\"control-label\" for=\"foto\">Foto: </label>";
-        //myForm+="<input class=\"form-control\"  type=\"file\" name=\"upload_foto\""+
-        //        "id=\"upload_foto\" >";
         myForm+="<input type=\"hidden\" name=\"foto\""+
-                " id=\"foto\" value=\""+jarr[i].foto+"\">";
+                " id=\"foto_updt\" value=\""+jarr[i].foto+"\">";
         myForm+="<div class=\"form-group\">";
         myForm+="<label class=\"control-label\" for=\"editora\">Editora:</label>";
         myForm+="<select name=\"editora\">";
@@ -121,11 +163,25 @@
         }
         myForm+="</select>";
         myForm+="</div>";
-        myForm+="<input class=\"btn btn-default\" type=\"submit\" value=\"Salvar\">";
         myForm+="</form>";
-        myForm+="</div><div class=\"atualiza_foto\"><img class=\"img-responsive\" src=\"assets/"+ jarr[i].foto +"\"></div>";
+        myForm+="<form id=\"image_upload_updt_form\" method=\"POST\""
+        + " enctype=\"multipart/form-data\" action='FileUploadHandler'"
+        + " autocomplete=\"off\">";
+        myForm+="<label class=\"control-label\" for=\"input_updt_foto\">Foto: </label>";
+        myForm+="<input class=\"form-control\" type=\"file\" "
+        + " name=\"input_updt_foto\" id=\"input_updt_foto\" >";
+        myForm+="</form>";
+        myForm+="<br><button class=\"btn btn-default\""
+        +" id=\"salvar_updt\">Salvar</button>";
+        myForm+="</div><div class=\"atualiza_foto\">";
+        myForm+="<div class=\"preview_updt\">"
+        +"<img class=\"img-responsive\" src=\"assets/"
+        + jarr[i].foto +"\" ></div>"
+        +"<p id=\"echo\">.</p></div>";
         $("#content").html(myForm);
     };
+    
 </script>
-
-    <div id="content"></div>
+<div id="content">
+    
+</div>
