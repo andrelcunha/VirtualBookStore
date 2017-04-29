@@ -98,11 +98,10 @@ public class FileUploadHandler extends HttpServlet {
             List fileItems = upload.parseRequest(request);
             // Process the uploaded file items
             Iterator i = fileItems.iterator();
-            System.out.println("Dentro do try");
-
+            //System.out.println("Dentro do try");
             while ( i.hasNext () ) 
             {
-                System.out.println("Dentro do while");
+                //System.out.println("Dentro do while");
                 FileItem item = (FileItem)i.next();
                 if ( !item.isFormField() )	
                 {
@@ -121,16 +120,15 @@ public class FileUploadHandler extends HttpServlet {
                     item.write( file ) ;
 
                     //return filename
-                    System.out.println("Uploaded Filename: " + fileName );
+                    //System.out.println("Uploaded Filename: " + fileName );
                     json.put("filename",fileName);
-                    out.print(json);
-                    out.flush();
                 }
-                System.out.println("After everything.");
+
             }
-        }catch(Exception ex) {
-            System.out.println(ex);
-        }
+            out.print(json);
+            out.flush();
+            //System.out.println("After everything.");
+        }catch(Exception ex) {System.out.println(ex);}
     }
 
     /**
