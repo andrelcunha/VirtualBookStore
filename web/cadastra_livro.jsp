@@ -1,5 +1,5 @@
 <%-- 
-    Document   : cadastrarlivro
+    Document   : cadastra_livro
     Created on : Apr 14, 2017, 11:48:10 AM
     Author     : deko
 --%>
@@ -15,6 +15,7 @@
             });
             $('#editora').html(select);
         });
+        $("#echo").text("aqui");
 //The preview funcion was possible thanks to 'Harrison Pickering' and his answer
 //http://stackoverflow.com/questions/22038036/uploading-images-using-php-but-without-page-refresh
         $("#input_foto").change(function(){
@@ -84,8 +85,8 @@
             </div>
         </form>
         <form id="image_upload_form" method="POST" enctype="multipart/form-data" action='FileUploadHandler' autocomplete="off">
-            <label class="control-label" for="input_foto">Foto: </label>
-            <input class="form-control"  type="file" name="input_foto"  id="input_foto" size="7">
+            <label class="control-label" >Foto: </label>
+            <input class="form-control"  type="file"  id="input_foto" size="7">
         </form>
         <br>
         <button id="salvar" class="btn btn-default">Salvar</button>
