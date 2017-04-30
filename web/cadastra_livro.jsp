@@ -92,7 +92,7 @@
         <button id="salvar" class="btn btn-default">Salvar</button>
 </div>
 <div class="atualiza_foto">
-    <div id="preview" >.
+    <div id="preview" >
     </div>
     <p id="echo"></p>
 </div>
