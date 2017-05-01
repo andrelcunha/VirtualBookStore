@@ -22,6 +22,7 @@ boolean flag_editoraOK=false;
 String tmp=".";
 LivroDom livro = new LivroDom();
 LivroDAO livro_dao = new LivroDAO();
+boolean flag_update=false;
 String fotoNum = livro_dao.getNextFoto();
 String foto="";
 int maxFileSize = 5000 * 1024; //max size 5mb
@@ -51,10 +52,11 @@ if ((contentType.indexOf("multipart/form-data") >= 0)) {
         {
             FileItem item = (FileItem)i.next();
             if(item.isFormField ()){ //Form data
-                
-                if (item.getFieldName().equals("titulo")){
+                if (item.getFieldName().equals("id")){
+                    livro.setId(Integer.parseInt(item.getString()));
+                }else if (item.getFieldName().equals("titulo")){
                     livro.setTitulo(item.getString());
-                tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
+                    tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
                 }else if (item.getFieldName().equals("autor")){
                     livro.setAutor(item.getString());
                     tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
@@ -65,13 +67,15 @@ if ((contentType.indexOf("multipart/form-data") >= 0)) {
 
                 }else if (item.getFieldName().equals("preco")){
                     if(item.getString().contains(","));
-                    livro.setPreco(Double.parseDouble(item.getString(). replace(",",".")));
+                    livro.setPreco(Double.parseDouble(item.getString().replace(",",".")));
                     tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
     
                 }else if (item.getFieldName().equals("editora")){
                     livro.setIdEditora(Integer.parseInt(item.getString()));
                     tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
-
+                }else if (item.getFieldName().equals("foto")){
+                    livro.setFoto(item.getString());
+                    tmp+=" "+item.getFieldName()+" = "+item.getString()+"\n";
                 }
             }
             else //file
@@ -79,10 +83,7 @@ if ((contentType.indexOf("multipart/form-data") >= 0)) {
                 // Get the uploaded file parameters
                 String fileName = item.getName();
                 String fileExt=fileName.substring(fileName.lastIndexOf("."));
-                //boolean isInMemory = fi.isInMemory();
-                //long sizeInBytes = fi.getSize();
-                // Write the file
-
+                tmp+=fileName;
                 if( fileName.lastIndexOf("\\") >= 0 ){
                     file = new File( filePath + 
                     fileName.substring(fileName.lastIndexOf("\\"))) ;
@@ -98,6 +99,7 @@ if ((contentType.indexOf("multipart/form-data") >= 0)) {
             }
         }
         livro_dao.salvaLivro(livro);
+        
     }catch(Exception ex) {
       System.out.println(ex);
     }
@@ -108,7 +110,7 @@ if ((contentType.indexOf("multipart/form-data") >= 0)) {
     </head>
     <body>
         <%=tmp%>
-        <p>Teste</p>
+        <p>Valores</p>
         <p><%=livro.getTitulo()%></p>
         <p><%=livro.getAutor()%></p>
         <p><%=livro.getAno()%></p>

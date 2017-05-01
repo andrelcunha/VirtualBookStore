@@ -17,7 +17,7 @@ while(request.getParameterNames().hasMoreElements()){
         break;
     }
 }
-LivroDom[] livros= ldao.ConsultaLivroTitulo(livro);
+LivroDom[] livros= ldao.ConsultaLivro(livro);
 String open_row="<div class=\"container\"><div class=\"row\">";
 String close_row="</div></div><br>";
 String result="";

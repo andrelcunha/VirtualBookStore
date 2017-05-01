@@ -18,7 +18,7 @@ while(request.getParameterNames().hasMoreElements()){
     if(tmp.contentEquals("nome"))
         usuario.setSenha(request.getParameter("senha"));
 }
-if(!((usuario.getNome().equals(""))&&(usuario.getSenha().equals(""))))
-usr_dao.SalvaUsuario(usuario);
+if(!((usuario.getNome().equals(""))||(usuario.getSenha().equals(""))))
+    usr_dao.SalvaUsuario(usuario);
 %>
 

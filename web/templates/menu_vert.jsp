@@ -4,11 +4,11 @@
     Author     : deko
 --%>
 <script>
-function load_table() {
-     document.getElementById("content").innerHTML='<object type="text/html" data="atualiza_livro.jsp" ></object>';
-}
-
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  }
 </script>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
@@ -17,12 +17,12 @@ function load_table() {
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Livro<span class="caret"></span></a>
                     <ul class="dropdown-menu">    
-                        <li><a data-toggle="pill" href="#cadastrar_livro">Cadastrar</a></li>
-                        <li><a data-toggle="pill" href="#atualizar_livro" onclick="load_table()">Atualizar</a></li>
+                        <li><a data-toggle="pill" href="#cadastra_livro">Cadastrar</a></li>
+                        <li><a data-toggle="pill" href="#atualiza_livro">Atualizar</a></li>
                     </ul>
               </li>
-              <li><a data-toggle="pill" href="#editora">Editora</a></li>
-              <li><a data-toggle="pill" href="#usuario">Usuário</a></li>
+              <li><a data-toggle="pill" href="#cadastra_editora">Editora</a></li>
+              <li><a data-toggle="pill" href="#cadastra_usuario">Usuário</a></li>
             </ul>
         </div>
         <div class="col-md-8">
@@ -30,18 +30,20 @@ function load_table() {
                 <div id="home" class="tab-pane fade in active">
                     <%@include file="/home_admin.jsp" %>
                 </div>
-                <div id="cadastrar_livro" class="tab-pane fade ">
-                    <%@include file="/livro.jsp" %>
+                <div id="cadastra_livro" class="tab-pane fade ">
+                    <%@include file="/cadastra_livro.jsp" %>
                 </div>
-                <div id="atualizar_livro" class="tab-pane fade ">
-                    <div id="content">
-                    </div>
+                <div id="atualiza_livro" class="tab-pane fade">
+                    <iframe src="atualiza_livro_standalone.jsp" width="100%" 
+                    frameBorder="0" scrolling="auto" 
+                    onload="resizeIframe(this)">"
+                    </iframe>
                 </div>
-                <div id="editora" class="tab-pane fade">
-                    <%@include file="/editora.jsp" %>
+                <div id="cadastra_editora" class="tab-pane fade">
+                    <%@include file="/cadastra_editora.jsp" %>
                 </div>
-                <div id="usuario" class="tab-pane fade">
-                    <%@include file="/usuario.jsp" %>
+                <div id="cadastra_usuario" class="tab-pane fade">
+                    <%@include file="/cadastra_usuario.jsp" %>
                 </div>
             </div>
         </div>
