@@ -12,12 +12,6 @@ and open the template in the editor.
       margin-bottom: 10px;
       border-radius: 0;
     }
-    
-    /* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-      
-    }
    
     /* Add a gray background color and some padding to the footer */
     footer {
@@ -68,7 +62,6 @@ and open the template in the editor.
     .atualiza_form  {
        width: 50%;
         height: 500px;
-        background: red;
         float: left; 
     } 
     .atualiza_foto {

@@ -86,7 +86,7 @@ public class LivroDAO {
         String sqlstr = "SELECT * FROM public.livro ";
         if (!livro.getTitulo().equals(""))
             sqlstr += String.format("WHERE titulo LIKE '%%%s%%'", livro.getTitulo());
-        sqlstr += ";";
+        sqlstr += " ORDER BY id ASC;";
         ResultSet rs = ExecutaSelect(sqlstr);
         ArrayList<LivroDom> array = new ArrayList<>();
         while(rs.next()){

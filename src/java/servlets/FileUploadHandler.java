@@ -35,7 +35,8 @@ public class FileUploadHandler extends HttpServlet {
     private final int maxMemSize = 4 * 1024;
     private File file ;
     
-    protected String getNextFileName(String fileName) throws SQLException, ClassNotFoundException{
+    protected String getNextFileName(String fileName) 
+                throws SQLException, ClassNotFoundException{
         String foto;
         LivroDAO livro_dao = new LivroDAO();
         String fotoNum = livro_dao.getNextFoto();
@@ -82,6 +83,7 @@ public class FileUploadHandler extends HttpServlet {
            json.put("error","No file uploaded");
            out.print(json);
            out.flush();
+           System.out.println("No file uploaded");
            return;
         }
         DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -93,15 +95,17 @@ public class FileUploadHandler extends HttpServlet {
         ServletFileUpload upload = new ServletFileUpload(factory);
         // maximum file size to be uploaded.
         upload.setSizeMax( maxFileSize );
+        System.out.println("Antes do try");
+
         try{ 
             // Parse the request to get file items.
             List fileItems = upload.parseRequest(request);
             // Process the uploaded file items
             Iterator i = fileItems.iterator();
-            //System.out.println("Dentro do try");
+            System.out.println("Dentro do try");
             while ( i.hasNext () ) 
             {
-                //System.out.println("Dentro do while");
+                System.out.println("Dentro do while");
                 FileItem item = (FileItem)i.next();
                 if ( !item.isFormField() )	
                 {
@@ -119,15 +123,15 @@ public class FileUploadHandler extends HttpServlet {
                     }
                     item.write( file ) ;
 
-                    //return filename
-                    //System.out.println("Uploaded Filename: " + fileName );
+                    //return the filename
+                    System.out.println("Uploaded Filename: " + fileName );
                     json.put("filename",fileName);
                 }
 
             }
             out.print(json);
             out.flush();
-            //System.out.println("After everything.");
+            System.out.println("After everything.");
         }catch(Exception ex) {System.out.println(ex);}
     }
 

@@ -48,12 +48,9 @@ public class LivroNgn extends HttpServlet {
         ldao = new LivroDAO();
         livro = new LivroDom();
         livro.setId(0);
-        //System.out.println("aqui");
         Enumeration paramNames = request.getParameterNames();
         while(paramNames.hasMoreElements()){
-            //System.out.println("dentro do while");
             String paramName=(String)paramNames.nextElement();
-            //System.out.println(paramName);
             switch (paramName) {
                 case "id":
                     livro.setId(Integer.parseInt(request.getParameter("id")));

@@ -3,6 +3,12 @@
     Created on : Apr 16, 2017, 3:11:43 PM
     Author     : deko
 --%>
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  }
+</script>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
@@ -28,7 +34,10 @@
                     <%@include file="/cadastra_livro.jsp" %>
                 </div>
                 <div id="atualiza_livro" class="tab-pane fade">
-                    <%@include file="/atualiza_livro.jsp" %>
+                    <iframe src="atualiza_livro_standalone.jsp" width="100%" 
+                    frameBorder="0" scrolling="auto" 
+                    onload="resizeIframe(this)">"
+                    </iframe>
                 </div>
                 <div id="cadastra_editora" class="tab-pane fade">
                     <%@include file="/cadastra_editora.jsp" %>

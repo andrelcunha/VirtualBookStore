@@ -15,7 +15,6 @@
             });
             $('#editora').html(select);
         });
-        $("#echo").text("aqui");
 //The preview funcion was possible thanks to 'Harrison Pickering' and his answer
 //http://stackoverflow.com/questions/22038036/uploading-images-using-php-but-without-page-refresh
         $("#input_foto").change(function(){
@@ -28,7 +27,7 @@
 //http://stackoverflow.com/questions/21044798/how-to-use-formdata-for-ajax-file-upload
             var formData = new FormData($('#image_upload_form')[0]);//
             //the next line is commented because the data was been sent twice
-            //formData.append('tax_file', $('input[type=file]')[0].files[0]);
+            formData.append('tax_file', $('input[type=file]')[0].files[0]);
             $.ajax({
                 url: 'FileUploadHandler', // Url to which the request is send
                 type: 'POST',             // Type of request to be send, called as method
@@ -44,7 +43,9 @@
                         type: 'POST',
                         data: $('#form_livro').serialize(),
                         success: function () {
-                        alert('form was submitted');
+                            alert('Livro salvo com sucesso!');
+                            location.reload();
+
                         }
                     });
                 }
@@ -84,7 +85,9 @@
                 </select>
             </div>
         </form>
-        <form id="image_upload_form" method="POST" enctype="multipart/form-data" action='FileUploadHandler' autocomplete="off">
+        <form id="image_upload_form" method="POST"
+              enctype="multipart/form-data"
+              action='FileUploadHandler' autocomplete="off">
             <label class="control-label" >Foto: </label>
             <input class="form-control"  type="file"  id="input_foto" size="7">
         </form>
