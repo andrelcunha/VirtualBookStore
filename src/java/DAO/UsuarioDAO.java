@@ -9,7 +9,6 @@ package DAO;
  *
  * @author deko
  */
-import connectionfactory.connection;
 import domain.UsuarioDom;
 import java.sql.*;
 
@@ -22,18 +21,23 @@ public class UsuarioDAO {
     public void setConection(Connection con){
         this.con = con;
     }
-    public void SalvaUsuario(UsuarioDom usuario) throws SQLException, ClassNotFoundException{
-        ps = con.prepareStatement("INSERT INTO public.usuario(" +
-        "nome, senha) VALUES ( ?, ?);");
-        ps.setString(1,usuario.getNome());
-        ps.setString(2,usuario.getSenha());
-        rs = ps.executeQuery();
+    public void SalvaUsuario(UsuarioDom usuario){
+       try{
+            ps = con.prepareStatement("INSERT INTO public.usuario(" +
+            "nome, senha) VALUES ( ?, ?);");
+            ps.setString(1,usuario.getNome());
+            ps.setString(2,usuario.getSenha());
+            rs = ps.executeQuery();
+       }catch(SQLException e){
+           e.printStackTrace();
+       }
     }
     
-    public int ConsultaUsuario(String usuario,String senha) throws SQLException, ClassNotFoundException{
+    public int ConsultaUsuario(String usuario,String senha) {
         int qtde;
         try{
-            ps  = con.prepareStatement("SELECT COUNT(*) as qtde FROM public.usuario WHERE nome='%s' AND senha='%s'");
+            ps  = con.prepareStatement("SELECT COUNT(*) as qtde "
+                    + "FROM public.usuario WHERE nome=? AND senha=?");
             ps.setString(1,usuario);
             ps.setString(2,senha);
             rs = ps.executeQuery();
