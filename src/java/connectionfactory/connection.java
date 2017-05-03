@@ -16,15 +16,31 @@ import java.sql.*;
 public class connection {
 ///Disponibiliza conexao atraves do get.    
 
-
+    Connection con;
     private static final String CONN_URL = "jdbc:postgresql://localhost/CatalogoLivros";
     private static final String CONN_USR="sa_catalogolivros";
     private static final String CONN_PWD="saciperere";
-    public connection() throws ClassNotFoundException{
-            Class.forName("org.postgresql.Driver");
+    private static final String CONN_DRIVER="org.postgresql.Driver";
+    
+    public boolean connect(){
+            try{
+                Class.forName(CONN_DRIVER);
+                con = DriverManager.getConnection(CONN_URL,CONN_USR, CONN_PWD);
+                return true;
+            }catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+    }
+    public void close(){
+        try{
+            con.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     public Connection getCon() throws SQLException{
-        return DriverManager.getConnection(CONN_URL,CONN_USR, CONN_PWD);
+        return con;
     }
 }
 

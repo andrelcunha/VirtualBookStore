@@ -15,40 +15,38 @@ import java.sql.*;
 
 
 public class UsuarioDAO {
+    private Connection con;
+    private PreparedStatement ps;
+    private ResultSet rs;
+    
+    public void setConection(Connection con){
+        this.con = con;
+    }
     public void SalvaUsuario(UsuarioDom usuario) throws SQLException, ClassNotFoundException{
-        String sqlstr = String.format("INSERT INTO public.usuario(" +
-        "nome, senha) VALUES ( '%s', '%s');",usuario.getNome(),usuario.getSenha());
-        ExecutaInsert(sqlstr);
+        ps = con.prepareStatement("INSERT INTO public.usuario(" +
+        "nome, senha) VALUES ( ?, ?);");
+        ps.setString(1,usuario.getNome());
+        ps.setString(2,usuario.getSenha());
+        rs = ps.executeQuery();
     }
-    public boolean ConsultaUsuario(String usuario,String senha) throws SQLException, ClassNotFoundException{
-        String sqlstr = String.format("SELECT COUNT(*) FROM public.usuario WHERE nome='%s' AND senha='%s'",usuario,senha);
-        String s="";
-        ResultSet rs = ExecutaSelect(sqlstr);
+    
+    public int ConsultaUsuario(String usuario,String senha) throws SQLException, ClassNotFoundException{
+        int qtde;
         try{
-            while(rs.next())
-            {
-                       s = rs.getString(1);
-            }
-            rs.close();  
+            ps  = con.prepareStatement("SELECT COUNT(*) as qtde FROM public.usuario WHERE nome='%s' AND senha='%s'");
+            ps.setString(1,usuario);
+            ps.setString(2,senha);
+            rs = ps.executeQuery();
+            rs.next();
+            qtde = rs.getInt("qtde");
+            
+            //0 - user not found;
+            //1 - user found and authenticated 
+            return qtde;  
+        }catch(SQLException e){
+            e.printStackTrace();
+            return -1;
         }
-        catch(SQLException e)
-        {
-        }
-        return Integer.parseInt(s)==1;
-    }
-
-    private ResultSet ExecutaSelect(String sqlstr) throws SQLException, ClassNotFoundException {
-            
-                Connection con = new connection().getCon();
-                Statement st = con.createStatement();
-                return st.executeQuery(sqlstr);
-            
-    }
-    private int ExecutaInsert(String sqlstr) throws SQLException, ClassNotFoundException {
-            
-                Connection con = new connection().getCon();
-                Statement st = con.prepareCall(sqlstr, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                return st.executeUpdate(sqlstr);
     }
 }
 
