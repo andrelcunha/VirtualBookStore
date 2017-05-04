@@ -4,7 +4,7 @@
     Author     : deko
 --%>
         <h2>Cadastrar Usuário</h2>
-        <form action="engine/usuario_ngn.jsp" method="POST">
+        <form action="UsuarioNgn" method="POST">
             <div class="form-group">
                 <label for="nome" >Nome do usuário:</label>
                 <input class="form-control" type="text" name="nome" id="nome" placeholder="Digite o Nome...">

@@ -45,6 +45,7 @@ function send_file(){
         },
         success:  function (data){ // A function to be called if request succeeds
             $("#foto_upd").val(JSON.parse(data).filename);
+            console.log(newFileName);
             //send_form();
         }
     });

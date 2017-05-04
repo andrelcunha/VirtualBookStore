@@ -4,9 +4,9 @@
     Author     : deko
 --%>
 <script>
-  function resizeIframe(obj) {
+ function resizeIframe(obj) {
     obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-  }
+ }
 </script>
 
 <div class="container-fluid">
@@ -20,9 +20,9 @@
                         <li><a data-toggle="pill" href="#cadastra_livro">Cadastrar</a></li>
                         <li><a data-toggle="pill" href="#atualiza_livro">Atualizar</a></li>
                     </ul>
-              </li>
-              <li><a data-toggle="pill" href="#cadastra_editora">Editora</a></li>
-              <li><a data-toggle="pill" href="#cadastra_usuario">Usuário</a></li>
+                </li>
+            <li><a data-toggle="pill" href="#cadastra_editora">Editora</a></li>
+            <li><a data-toggle="pill" href="#cadastra_usuario">Usuário</a></li>
             </ul>
         </div>
         <div class="col-md-8">
@@ -34,8 +34,7 @@
                     <%@include file="/cadastra_livro.jsp" %>
                 </div>
                 <div id="atualiza_livro" class="tab-pane fade">
-                    <iframe src="atualiza_livro_standalone.jsp" width="100%" 
-                    frameBorder="0" scrolling="auto" 
+                    <iframe src="atualiza_livro_standalone.jsp" frameBorder="1"  
                     onload="resizeIframe(this)">"
                     </iframe>
                 </div>

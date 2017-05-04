@@ -13,7 +13,7 @@ function submitdata()
 
  $.ajax({
   type: 'post',
-  url: 'engine/editora_ngn.jsp',
+  url: 'EditoraNgn',
    data: {
    nome:nome,
    cidade:cidade

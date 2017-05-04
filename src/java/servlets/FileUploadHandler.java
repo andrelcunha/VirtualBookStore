@@ -125,12 +125,12 @@ public class FileUploadHandler extends HttpServlet {
 
                     //return the filename
                     System.out.println("Uploaded Filename: " + fileName );
-                    json.put("filename",fileName);
+                    //json.put("filename",fileName);
                 }
 
             }
-            out.print(json);
-            out.flush();
+            //out.print(json);
+            //out.flush();
             System.out.println("After everything.");
         }catch(Exception ex) {System.out.println(ex);}
     }

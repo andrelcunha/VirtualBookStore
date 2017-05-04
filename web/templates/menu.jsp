@@ -3,7 +3,7 @@
     Created on : Apr 16, 2017, 2:08:59 AM
     Author     : deko
 --%>
-<%@include file="/engine/login_flag.jsp" %>
+
 <%
 String btnLogin="";
 String btnAdmin="";
