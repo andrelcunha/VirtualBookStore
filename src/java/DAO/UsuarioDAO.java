@@ -18,7 +18,7 @@ public class UsuarioDAO {
     private PreparedStatement ps;
     private ResultSet rs;
     
-    public void setConection(Connection con){
+    public void setConnection(Connection con){
         this.con = con;
     }
     public void SalvaUsuario(UsuarioDom usuario){

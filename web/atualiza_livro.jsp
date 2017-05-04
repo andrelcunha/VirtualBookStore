@@ -14,23 +14,38 @@ $(document).ready(function(){
         jarr=result;
         create_table();
     });
+
     $("#salvar_upd").on("click",function (){
         send_file();
     });
 });
 function send_file(){
-    var formData = new FormData($('#image_upload_form_upd')[0]);
-    formData.append('foto', $('input[type=file]')[0].files[0]);
+    //var formData = new FormData($('#image_upload_form_upd').files[0]);
+    var myFile = $('#input_foto_upd').prop('files')[0];
+    //formData.append('foto', $('input[type=file]')[0].files[0]);
     $.ajax({
         url: 'FileUploadHandler', // Url to which the request is send
         type: 'POST',             // Type of request to be send, called as method
-        data: formData,       // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        data: myFile,       // Data sent to server, a set of key/value pairs (i.e. form fields and values)
         contentType: false,       // The content type used when sending data to the server.
         cache: false,             // To unable request pages to be cached
         processData:false,        // To send DOMDocument or non processed data file it is set to false
+        beforeSend: function(e,data){
+           // Get the original filename
+            var fileName = $('#input_foto_upd').prop('files')[0].name;
+            var ext = fileName.substr(fileName.lastIndexOf('.')+1);
+            var prename = padLeft($("#id_upd").val(),6);
+            var newFileName = prename + "."+ext.trim();
+            debugger;
+            console.log(newFileName);
+            // Update the form data with the new key value
+            $(myFile).attr("key", newFileName);
+            // Set the form data
+            data.formData = myFile;
+        },
         success:  function (data){ // A function to be called if request succeeds
             $("#foto_upd").val(JSON.parse(data).filename);
-            send_form();
+            //send_form();
         }
     });
 };
@@ -59,6 +74,9 @@ function read_url(input) {
         reader.readAsDataURL(input.files[0]);
     };
 };
+function padLeft(nr, n){
+    return Array(n-String(nr).length+1).join('0')+nr;
+}
     
 function clean_table(id) {
     $("#table_livros").remove();

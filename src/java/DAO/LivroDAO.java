@@ -21,7 +21,10 @@ public class LivroDAO {
     private PreparedStatement ps;
     private ResultSet rs;
     
-      
+    public void setConnection(Connection con){
+        this.con = con;
+    }  
+    
     public void salvaLivro(LivroDom livro){
         try{
             if (livro.getId()==0){// id = 0 means it is a new book.
@@ -50,17 +53,21 @@ public class LivroDAO {
         ps.setString(4,String.format(Locale.ROOT,"%.2f",livro.getPreco()));
         ps.setString(5,livro.getFoto());
         ps.setString(6,String.format("%d",livro.getIdEditora()));
-        rs=ps.executeQuery();
+        ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
-    public LivroDom[] ConsultaLivro(LivroDom livro){
+    public LivroDom[] ConsultaLivro(LivroDom livro) throws SQLException{
         LivroDom[] livros_encontrados;
-        try{
-            ps = con.prepareStatement("SELECT * FROM public.livro "
-                    + "WHERE titulo LIKE '%%?%%'"
-                    + " ORDER BY id ASC;");
+            String sql = "SELECT * FROM public.livro ";
+            if (!livro.getTitulo().equals("")){
+                sql += "WHERE titulo LIKE '%%"+livro.getTitulo();
+                sql += "%%' ORDER BY id ASC";
+            }
+            sql+=";";
+            ps = con.prepareStatement(sql);
+            //ps.setString(1, livro.getTitulo());
             rs = ps.executeQuery();
             ArrayList<LivroDom> array = new ArrayList<>();
             while(rs.next()){
@@ -75,9 +82,7 @@ public class LivroDAO {
                 array.add(tmp);
             }
             livros_encontrados = array.toArray(new LivroDom[array.size()]);
-        }catch (SQLException e){
-            livros_encontrados = null;
-        }
+        
         return livros_encontrados;
     }
     
@@ -85,7 +90,7 @@ public class LivroDAO {
         String sFoto=null;
         ps = con.prepareStatement("SELECT id from livro " +
                                     "order by id desc limit 1;");
-        ResultSet rs = ps.executeQuery();
+        rs = ps.executeQuery();
         while(rs.next()){
             sFoto=String.format("%06d",rs.getInt(1)+1);
         }

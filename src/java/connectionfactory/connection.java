@@ -22,12 +22,12 @@ public class connection {
     private static final String CONN_PWD="saciperere";
     private static final String CONN_DRIVER="org.postgresql.Driver";
     
-    public boolean connect(){
+    public boolean connect() throws SQLException{
             try{
                 Class.forName(CONN_DRIVER);
                 con = DriverManager.getConnection(CONN_URL,CONN_USR, CONN_PWD);
                 return true;
-            }catch (Exception e){
+            }catch (ClassNotFoundException e){
                 e.printStackTrace();
                 return false;
             }
@@ -35,7 +35,7 @@ public class connection {
     public void close(){
         try{
             con.close();
-        }catch(Exception e){
+        }catch(SQLException e){
             e.printStackTrace();
         }
     }

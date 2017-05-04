@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DAO.LivroDAO;
+import connectionfactory.connection;
 import domain.LivroDom;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -46,51 +47,58 @@ public class LivroNgn extends HttpServlet {
         LivroDom livro;
         LivroDAO ldao;
         ldao = new LivroDAO();
-        livro = new LivroDom();
-        livro.setId(0);
-        Enumeration paramNames = request.getParameterNames();
-        while(paramNames.hasMoreElements()){
-            String paramName=(String)paramNames.nextElement();
-            switch (paramName) {
-                case "id":
-                    livro.setId(Integer.parseInt(request.getParameter("id")));
-                    break;
-                case "titulo":
-                    livro.setTitulo(request.getParameter("titulo"));
-                    break;
-                case "autor":
-                    livro.setAutor(request.getParameter("autor"));
-                    break;
-                case "ano":
-                    livro.setAno(Integer.parseInt(request.getParameter("ano")));
-                    break;
-                case "preco":
-                    String tmp=request.getParameter("preco");
-                    livro.setPreco(Double.parseDouble(tmp.replace(",",".")));
-                    break;
-                case "foto":
-                    livro.setFoto(request.getParameter("foto"));
-                    break;
-                case "editora":
-                    livro.setIdEditora(Integer.parseInt(request.getParameter("editora")));
-                    break;
-                default:
-                    break;
+        connection con = new connection();
+            if (con.connect()){
+                ldao.setConnection(con.getCon());
+            
+            livro = new LivroDom();
+            livro.setId(0);
+            Enumeration paramNames = request.getParameterNames();
+            while(paramNames.hasMoreElements()){
+                String paramName=(String)paramNames.nextElement();
+                switch (paramName) {
+                    case "id":
+                        livro.setId(Integer.parseInt(request.getParameter("id")));
+                        break;
+                    case "titulo":
+                        livro.setTitulo(request.getParameter("titulo"));
+                        break;
+                    case "autor":
+                        livro.setAutor(request.getParameter("autor"));
+                        break;
+                    case "ano":
+                        livro.setAno(Integer.parseInt(request.getParameter("ano")));
+                        break;
+                    case "preco":
+                        String tmp=request.getParameter("preco");
+                        livro.setPreco(Double.parseDouble(tmp.replace(",",".")));
+                        break;
+                    case "foto":
+                        livro.setFoto(request.getParameter("foto"));
+                        break;
+                    case "editora":
+                        livro.setIdEditora(Integer.parseInt(request.getParameter("editora")));
+                        break;
+                    default:
+                        break;
+                }
             }
+            ldao.salvaLivro(livro);
+            JSONObject json = new JSONObject();
+            json.put("id", livro.getId());
+            json.put("titulo", livro.getTitulo());
+            json.put("autor", livro.getAutor());
+            json.put("ano", livro.getAno());
+            json.put("preco", livro.getPreco());
+            json.put("foto", livro.getFoto());
+            json.put("editora", livro.getIdEditora());
+            out.print(json);
+            out.flush();
+            con.close();
+        }else{
+            System.out.println("Connection failure");
         }
-        ldao.salvaLivro(livro);
-        JSONObject json = new JSONObject();
-        json.put("id", livro.getId());
-        json.put("titulo", livro.getTitulo());
-        json.put("autor", livro.getAutor());
-        json.put("ano", livro.getAno());
-        json.put("preco", livro.getPreco());
-        json.put("foto", livro.getFoto());
-        json.put("editora", livro.getIdEditora());
-        out.print(json);
-        out.flush();
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

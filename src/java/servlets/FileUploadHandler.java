@@ -111,7 +111,7 @@ public class FileUploadHandler extends HttpServlet {
                 {
                     // Get the uploaded file parameters
                     String fileName = item.getName();
-                    fileName = getNextFileName(fileName);
+                    //fileName = getNextFileName(fileName);
                     System.out.println(fileName);
                     // Write the file
                     if( fileName.lastIndexOf("\\") >= 0 ){

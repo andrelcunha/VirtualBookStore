@@ -19,7 +19,8 @@
     }
     if (!((sUsr.equals(""))&&(sPwd.equals("")))){
         UsuarioDAO usrDao = new UsuarioDAO();
-        if(usrDao.ConsultaUsuario(sUsr, sPwd)){
+        int test_usr=usrDao.ConsultaUsuario(sUsr, sPwd);
+        if(test_usr==1){
             session = request.getSession();
             session.setAttribute("user", sUsr);
             session.setMaxInactiveInterval(30*60); //30 minuts expiration
@@ -34,10 +35,13 @@
             String encodedURL = response.encodeURL("../index.jsp");
             response.sendRedirect(encodedURL);
         }
-        else{
+        else if(test_usr==0) {
         /*User and password doesn't match*/
         session.setAttribute("login_ok", "false");
         response.sendRedirect("../login.jsp");
+        }
+        else {
+            System.out.println("Error. Cannot authenticate.");
         }
     }
     else{

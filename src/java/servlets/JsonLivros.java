@@ -18,6 +18,7 @@ import DAO.LivroDAO;
 import DAO.EditoraDAO;
 import domain.LivroDom;
 import domain.EditoraDom;
+import connectionfactory.connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,6 +49,11 @@ public class JsonLivros extends HttpServlet {
             JSONArray jarr = new JSONArray();
             EditoraDAO edao1 = new EditoraDAO();
             LivroDAO ldao1 = new LivroDAO();
+            connection con = new connection();
+            if (con.connect()){
+                edao1.setConnection(con.getCon());
+                ldao1.setConnection(con.getCon());
+            }
             EditoraDom[] editoras = edao1.listaEditora();
             LivroDom livro = new LivroDom();
             livro.setTitulo("");
@@ -65,6 +71,7 @@ public class JsonLivros extends HttpServlet {
             }
             out.print(jarr);
             out.flush();
+            con.close();
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

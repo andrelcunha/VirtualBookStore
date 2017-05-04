@@ -18,7 +18,8 @@ public class EditoraDAO {
     private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
-    public void setConection(Connection con){
+    
+    public void setConnection(Connection con){
         this.con = con;
     }
     public void salvaEditora(EditoraDom editora){   
@@ -48,14 +49,10 @@ public class EditoraDAO {
                 array.add(tmp);
             }
             editoras_encontradas = (EditoraDom[]) array.toArray(new EditoraDom[array.size()]);
-            return editoras_encontradas;
         }catch (SQLException e){
             e.printStackTrace();
         }
         return editoras_encontradas;
     }
-       
-
-
-    }
+}
 

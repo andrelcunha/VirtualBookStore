@@ -27,7 +27,7 @@
 //http://stackoverflow.com/questions/21044798/how-to-use-formdata-for-ajax-file-upload
             var formData = new FormData($('#image_upload_form')[0]);//
             //the next line is commented because the data was been sent twice
-            formData.append('tax_file', $('input[type=file]')[0].files[0]);
+            formData.append('foto', $('input[type=file]')[0].files[0]);
             $.ajax({
                 url: 'FileUploadHandler', // Url to which the request is send
                 type: 'POST',             // Type of request to be send, called as method

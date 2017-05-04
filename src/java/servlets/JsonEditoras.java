@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import DAO.EditoraDAO;
+import connectionfactory.connection;
 import domain.EditoraDom;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -45,15 +46,22 @@ public class JsonEditoras extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             JSONArray jarr = new JSONArray();
             EditoraDAO edao1 = new EditoraDAO();
-            EditoraDom[] editoras = edao1.listaEditora();
-            for (EditoraDom editora : editoras) {
-                JSONObject json = new JSONObject();
-                json.put("id", editora.getId());
-                json.put("nome", editora.getNome());
-                jarr.add(json);
+            connection con = new connection();
+            if (con.connect()){
+                edao1.setConnection(con.getCon());
+                EditoraDom[] editoras = edao1.listaEditora();
+                for (EditoraDom editora : editoras) {
+                    JSONObject json = new JSONObject();
+                    json.put("id", editora.getId());
+                    json.put("nome", editora.getNome());
+                    jarr.add(json);
+                }
+                out.print(jarr);
+                out.flush();
+                con.close();
+            }else{
+                System.out.println("Connection failure.");
             }
-            out.print(jarr);
-            out.flush();
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

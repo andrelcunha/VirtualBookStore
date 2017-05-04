@@ -24,7 +24,7 @@
         <div class="col-sm-6" style="padding: 20px;padding-left: 40px">
             <h2>Acesso à Área administrativa</h2>
             <p>Efetue o login para ter acesso funções administrativas.</p>
-            <form action="engine/login_ngn.jsp" method="POST">
+            <form action="LoginNgn" method="POST">
              <div class="form-group">
                 <label for="user">Nome:</label>
                 <input type="text" class="form-control" id="user" name="user">
