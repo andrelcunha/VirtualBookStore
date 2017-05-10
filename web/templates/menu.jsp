@@ -23,8 +23,16 @@ if(cookies !=null){
     }
 }
 
+
 if(!((user.equals(""))&&(userName.equals("")))){
-    btnAdmin ="<li><a href=\"admin.jsp\" >Administrar</a></li>";
+    btnAdmin = "<li class=\"dropdown\">"
+            + "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" "
+            + "href=\"#\">Administrar<span class=\"caret\"></span></a>"
+            + "<ul class=\"dropdown-menu\">"
+            + "<li><a href=\"?content=cad_u\">Cadastrar Usuário</a></li>"
+            + "<li><a href=\"?content=cad_e\">Cadastrar Editora</a></li>"
+            + "<li><a href=\"index.jsp?content=cad_l\">Cadastrar Livro</a></li>"
+            + "<li><a href=\"index.jsp?content=atu_l\">Atualizar Livro</a></li></ul></li>";                    
     btnLogin ="<li><a href=\"logout.jsp\">"+userName+" <span class=\"glyphicon glyphicon-log-out\"></span></a></li>";
 }
 else{
@@ -35,12 +43,7 @@ else{
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-        <a class="navbar-brand" href="#"><img src="images/book-stack-thumb_inverted.png" class="img-responsive logo_thumb"></a>
+        <a class="navbar-brand" href="#"><span class="glyphicon"><img src="images/book-stack-thumb_inverted.png" class="img-responsive logo_thumb"></span></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar" >
       <ul class="nav navbar-nav" >

@@ -45,14 +45,15 @@ public class LivroDAO {
                 + " foto=?,"
                 + " \"idEditora\"=?"
                 + " WHERE id=?;");
-            ps.setString(7,String.format("%d",livro.getId()));
+            ps.setInt(7,livro.getId());
         }
         ps.setString(1,livro.getTitulo());
         ps.setString(2,livro.getAutor());
-        ps.setString(3,String.format("%d",livro.getAno()));
-        ps.setString(4,String.format(Locale.ROOT,"%.2f",livro.getPreco()));
+        ps.setInt(3,livro.getAno());
+        ps.setDouble(4,livro.getPreco());
         ps.setString(5,livro.getFoto());
-        ps.setString(6,String.format("%d",livro.getIdEditora()));
+        ps.setInt(6,livro.getIdEditora());
+        System.out.println(ps.toString());
         ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
@@ -62,10 +63,11 @@ public class LivroDAO {
         LivroDom[] livros_encontrados;
             String sql = "SELECT * FROM public.livro ";
             if (!livro.getTitulo().equals("")){
-                sql += "WHERE titulo LIKE '%%"+livro.getTitulo();
-                sql += "%%' ORDER BY id ASC";
+                sql += "WHERE titulo LIKE '%%";
+                sql += livro.getTitulo();
+                sql += "%%'";
             }
-            sql+=";";
+            sql+=" ORDER BY id ASC;";
             ps = con.prepareStatement(sql);
             //ps.setString(1, livro.getTitulo());
             rs = ps.executeQuery();

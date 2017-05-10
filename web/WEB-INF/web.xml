@@ -13,7 +13,7 @@
         <description>Location to store uploaded file</description> 
         <param-name>file-upload</param-name> 
         <param-value>
-        /Users/deko/NetBeansProjects/CatalogoVirtual/web/assets/
+        /Users/deko/NetBeansProjects/CatalogoVirtual/web/assets/pics/
         </param-value> 
 </context-param>
 </web-app>

@@ -11,16 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.File;
 import java.util.List;
 import java.util.Iterator;
-import DAO.LivroDAO;
-import java.sql.SQLException;
+import javax.servlet.Servlet;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.json.simple.JSONObject;
 
 
 /**
@@ -35,15 +32,6 @@ public class FileUploadHandler extends HttpServlet {
     private final int maxMemSize = 4 * 1024;
     private File file ;
     
-    protected String getNextFileName(String fileName) 
-                throws SQLException, ClassNotFoundException{
-        String foto;
-        LivroDAO livro_dao = new LivroDAO();
-        String fotoNum = livro_dao.getNextFoto();
-        String fileExt=fileName.substring(fileName.lastIndexOf("."));
-        foto=fotoNum+fileExt;
-        return foto;
-    }
     
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -77,12 +65,8 @@ public class FileUploadHandler extends HttpServlet {
         isMultipart = ServletFileUpload.isMultipartContent(request);
         response.setContentType("text/html");
         java.io.PrintWriter out = response.getWriter( );
-        JSONObject json = new JSONObject();
 
         if( !isMultipart ){
-           json.put("error","No file uploaded");
-           out.print(json);
-           out.flush();
            System.out.println("No file uploaded");
            return;
         }
@@ -95,23 +79,19 @@ public class FileUploadHandler extends HttpServlet {
         ServletFileUpload upload = new ServletFileUpload(factory);
         // maximum file size to be uploaded.
         upload.setSizeMax( maxFileSize );
-        System.out.println("Antes do try");
 
         try{ 
             // Parse the request to get file items.
             List fileItems = upload.parseRequest(request);
             // Process the uploaded file items
             Iterator i = fileItems.iterator();
-            System.out.println("Dentro do try");
             while ( i.hasNext () ) 
             {
-                System.out.println("Dentro do while");
                 FileItem item = (FileItem)i.next();
                 if ( !item.isFormField() )	
                 {
                     // Get the uploaded file parameters
                     String fileName = item.getName();
-                    //fileName = getNextFileName(fileName);
                     System.out.println(fileName);
                     // Write the file
                     if( fileName.lastIndexOf("\\") >= 0 ){
@@ -125,13 +105,8 @@ public class FileUploadHandler extends HttpServlet {
 
                     //return the filename
                     System.out.println("Uploaded Filename: " + fileName );
-                    //json.put("filename",fileName);
                 }
-
             }
-            //out.print(json);
-            //out.flush();
-            System.out.println("After everything.");
         }catch(Exception ex) {System.out.println(ex);}
     }
 

@@ -33,7 +33,7 @@ if (con.connect()){
             result+="<div class=\"\">";
             if(i<livros.length){
                 String titulo=livros[i].getTitulo();
-                result+="<img src=\"assets/"+ livros[i].getFoto() +"\"";
+                result+="<img src=\"assets/pics/"+ livros[i].getFoto() +"\"";
                 result+="class=\"img-responsive\"";
                 result+="style=\"width:100%\" alt=\""+titulo+"\"></div>";
                 result+="<div class=\"titulo\">"+titulo+"</div>";
