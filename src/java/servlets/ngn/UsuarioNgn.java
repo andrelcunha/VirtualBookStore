@@ -51,7 +51,7 @@ public class UsuarioNgn extends HttpServlet {
                     String tmp=request.getParameterNames().nextElement();
                     if(tmp.contentEquals("nome"))
                         usuario.setNome(request.getParameter("nome"));
-                    if(tmp.contentEquals("nome"))
+                    if(tmp.contentEquals("senha"))
                         usuario.setSenha(request.getParameter("senha"));
                 }
                 if(!((usuario.getNome().equals(""))||(usuario.getSenha().equals(""))))
