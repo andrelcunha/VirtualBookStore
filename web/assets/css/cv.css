@@ -72,3 +72,7 @@ and open the template in the editor.
         margin-left: 50%;
         height: 500px;
     }
+    .row{
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }

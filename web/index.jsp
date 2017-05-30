@@ -61,7 +61,7 @@ pageContext.setAttribute("content", content);
         </div>
     </c:when>
     <c:otherwise>
-        <jsp:include page="show_books.jsp"></jsp:include>
+         <jsp:include page="showbooks.jsp"></jsp:include>
     </c:otherwise>
 </c:choose>
                 
